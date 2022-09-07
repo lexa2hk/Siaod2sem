@@ -58,20 +58,21 @@ int main() {
                 cout<<"Задание 1. Установить четные биты переменной целого типа в 1:"<<endl;
                 cout<<"Число 16"<<endl;
                 cout<<"Двоичное представление: ";
-                coutp(16);
+                coutp(0x10);
                 cout<<endl;
                 cout<<"Результат: ";
-                coutp(set_even_1(16));
+                coutp(set_even_1(0x10));
                 cout<<endl;
                 break;
             case 2:
                 cout<<"Задание 2. Установить биты 11, 9, 7 в 1:"<<endl;
-                cout<<"Число 4096"<<endl;
+                cout<<"Введите число: ";
+                cin>>inp;
                 cout<<"Двоичное представление: ";
-                coutp(4096);
+                coutp(inp);
                 cout<<endl;
                 cout<<"Результат: ";
-                coutp(set_11_9_7_to_1(4096));
+                coutp(set_11_9_7_to_1(inp));
                 cout<<endl;
                 break;
             case 3:
@@ -92,6 +93,7 @@ int main() {
                 cin>>inp;
                 cout<<"Двоичное представление: ";
                 coutp(inp);
+                cout<<endl;
                 cout<<"Результат: ";
                 coutp(divide_by_16(inp));
                 cout<<endl;
