@@ -1,0 +1,3 @@
+C:/Users/lexa2k/Desktop/RTU_SEM2/Siaod2sem/cmake-build-debug/CMakeFiles/Siaod2sem.dir
+C:/Users/lexa2k/Desktop/RTU_SEM2/Siaod2sem/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/lexa2k/Desktop/RTU_SEM2/Siaod2sem/cmake-build-debug/CMakeFiles/rebuild_cache.dir

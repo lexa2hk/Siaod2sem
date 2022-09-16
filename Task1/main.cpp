@@ -2,6 +2,14 @@
 #include <string>
 using namespace std;
 
+//cmake_minimum_required(VERSION 3.23)
+//project(Siaod2sem)
+//
+//set(CMAKE_CXX_STANDARD 23)
+//
+//add_executable(Siaod2sem Task1/main.cpp)
+
+
 //Функция вывода на экран с помощью поразрядных операций (упр. 1-5)
 void coutp(unsigned int x)
 {
@@ -16,7 +24,8 @@ void coutp(unsigned int x)
 
 //Функция установки четных битов в единицу с помощью поразрядных операций (упр. 1)
 unsigned int set_even_1(unsigned int inp){
-    return inp|0b10101010101010101010101010101010;
+    //return inp|0b10101010101010101010101010101010;
+    return inp|0b01010101010101010101010101010101;
 }
 
 //Функция установки 11, 9, 7 битов в единицу с помощью поразрядных операций (упр. 2)
@@ -63,6 +72,7 @@ int main() {
                 cout<<"Результат: ";
                 coutp(set_even_1(0x10));
                 cout<<endl;
+                cout<<set_even_1(0x10)<<endl;
                 break;
             case 2:
                 cout<<"Задание 2. Установить биты 11, 9, 7 в 1:"<<endl;

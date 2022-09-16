@@ -1,0 +1,23 @@
+# ninja log v5
+0	108	6850560163895804	build.ninja	3becf0b0a636d93f
+2	577	6846205803803559	CMakeFiles/Siaod2sem.dir/Task1/main.cpp.obj	ac4b186b3c2aab19
+874	1264	6850549453604357	Siaod2sem.exe	1f561ea21cd50a2c
+0	874	6850549449741800	CMakeFiles/Siaod2sem.dir/Task2/main.cpp.obj	b0304bb473d33ffa
+2	896	6850565373016637	CMakeFiles/Siaod2sem.dir/Task2/main.cpp.obj	b0304bb473d33ffa
+3	1101	6850565375066351	CMakeFiles/Siaod2sem.dir/Task2/textFile.cpp.obj	d020ee0a45f43019
+1102	1208	6850565376100070	Siaod2sem.exe	48d7eef4d467a9c6
+2	951	6850566105294335	CMakeFiles/Siaod2sem.dir/Task2/textFile.cpp.obj	d020ee0a45f43019
+952	1022	6850566105980765	Siaod2sem.exe	48d7eef4d467a9c6
+3	731	6850572519460875	CMakeFiles/Siaod2sem.dir/Task2/main.cpp.obj	b0304bb473d33ffa
+5	995	6850572522096856	CMakeFiles/Siaod2sem.dir/Task2/textFile.cpp.obj	d020ee0a45f43019
+995	1077	6850572522899546	Siaod2sem.exe	48d7eef4d467a9c6
+3	909	6850572931407447	CMakeFiles/Siaod2sem.dir/Task2/textFile.cpp.obj	d020ee0a45f43019
+909	996	6850572932180042	Siaod2sem.exe	48d7eef4d467a9c6
+3	716	6850590522579205	CMakeFiles/Siaod2sem.dir/Task2/main.cpp.obj	b0304bb473d33ffa
+5	995	6850590525353719	CMakeFiles/Siaod2sem.dir/Task2/textFile.cpp.obj	d020ee0a45f43019
+995	1092	6850590526299308	Siaod2sem.exe	48d7eef4d467a9c6
+2	963	6850593909266206	CMakeFiles/Siaod2sem.dir/Task2/textFile.cpp.obj	d020ee0a45f43019
+963	1032	6850593909930449	Siaod2sem.exe	48d7eef4d467a9c6
+2	804	6850594635451432	CMakeFiles/Siaod2sem.dir/Task2/main.cpp.obj	b0304bb473d33ffa
+4	1127	6850594638688039	CMakeFiles/Siaod2sem.dir/Task2/textFile.cpp.obj	d020ee0a45f43019
+1127	1198	6850594639360896	Siaod2sem.exe	48d7eef4d467a9c6
