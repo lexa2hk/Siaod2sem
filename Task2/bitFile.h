@@ -21,11 +21,17 @@
 //    std::string createNote();
 //};
 
-bool readFromFile(std::string fileName);
 bool convertToBitFile(std::string fileName, std::string bitFileName);
 bool convertToBitFile(std::string fileName, std::string bitFileName);
 bool convertToTextFile(std::string bitFileName, std::string fileName);
 bool printBitFile(std::string bitFileName);
+bool directAccess(std::string bitFileName, int number, int length=32);
+bool deleteByKey(std::string bitFileName, std::string key, int length=32);
+
+void generateByWeekDay(std::string bitFileName, std::string group, std::string day);
+std::string* splitter (std::string s, std::string delim, int size);
+
+//Обновить расписание, найти дисциплины, которые стоят на одинаковых парах в одной аудитории, и определить для них новые аудитории.
 
 
 

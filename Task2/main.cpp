@@ -22,11 +22,17 @@ int main(){
     system("chcp 65001");
 
     string fileName = "schedule.txt";
-//    readFromFile(fileName);
 
     convertToBitFile(fileName, "schedule.bin");
     convertToTextFile("schedule.bin", "schedule2.txt");
     printBitFile("schedule.bin");
+    cout<<endl;
+    directAccess("schedule.bin", 0);
+
+//    cout<<deleteByKey("schedule.bin", "002");
+//    cout<<"===================="<<endl;
+//    printBitFile("temp.bin");
+    generateByWeekDay("schedule.bin", "ИКБО-03-21", "4");
 
     return 0;
 }
