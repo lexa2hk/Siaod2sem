@@ -7,6 +7,8 @@
 #include <string>
 
 #include "textFile.h"
+#include "bitFile.h"
+
 using namespace std;
 
 //cmake_minimum_required(VERSION 3.23)
@@ -18,13 +20,14 @@ using namespace std;
 
 int main(){
     system("chcp 65001");
-//    generateFile("test.txt");
 
-//    appendLine("test.txt", "1");
-    cout<<readNumber("test.txt", 1)<<endl;
-    cout<<countNumbers("test.txt");
+    string fileName = "schedule.txt";
+//    readFromFile(fileName);
 
-    copyFormatted("test.txt","textcp.txt",5);
+    convertToBitFile(fileName, "schedule.bin");
+    convertToTextFile("schedule.bin", "schedule2.txt");
+    printBitFile("schedule.bin");
+
     return 0;
 }
 

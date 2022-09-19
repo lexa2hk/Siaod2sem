@@ -61,6 +61,12 @@ build CMakeFiles/Siaod2sem.dir/Task2/textFile.cpp.obj: CXX_COMPILER__Siaod2sem_D
   OBJECT_DIR = CMakeFiles\Siaod2sem.dir
   OBJECT_FILE_DIR = CMakeFiles\Siaod2sem.dir\Task2
 
+build CMakeFiles/Siaod2sem.dir/Task2/bitFile.cpp.obj: CXX_COMPILER__Siaod2sem_Debug C$:/Users/lexa2k/Desktop/RTU_SEM2/Siaod2sem/Task2/bitFile.cpp || cmake_object_order_depends_target_Siaod2sem
+  DEP_FILE = CMakeFiles\Siaod2sem.dir\Task2\bitFile.cpp.obj.d
+  FLAGS = -g -std=gnu++23
+  OBJECT_DIR = CMakeFiles\Siaod2sem.dir
+  OBJECT_FILE_DIR = CMakeFiles\Siaod2sem.dir\Task2
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Siaod2sem
@@ -69,7 +75,7 @@ build CMakeFiles/Siaod2sem.dir/Task2/textFile.cpp.obj: CXX_COMPILER__Siaod2sem_D
 #############################################
 # Link the executable Siaod2sem.exe
 
-build Siaod2sem.exe: CXX_EXECUTABLE_LINKER__Siaod2sem_Debug CMakeFiles/Siaod2sem.dir/Task2/main.cpp.obj CMakeFiles/Siaod2sem.dir/Task2/textFile.cpp.obj
+build Siaod2sem.exe: CXX_EXECUTABLE_LINKER__Siaod2sem_Debug CMakeFiles/Siaod2sem.dir/Task2/main.cpp.obj CMakeFiles/Siaod2sem.dir/Task2/textFile.cpp.obj CMakeFiles/Siaod2sem.dir/Task2/bitFile.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Siaod2sem.dir
