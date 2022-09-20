@@ -21,6 +21,21 @@
 //    std::string createNote();
 //};
 
+struct customVector{
+
+    int size;
+    std::string* data;
+
+    int capacity;
+
+    customVector();
+
+    void push_back(std::string s);
+    void print();
+
+    ~customVector();
+};
+
 bool convertToBitFile(std::string fileName, std::string bitFileName);
 bool convertToBitFile(std::string fileName, std::string bitFileName);
 bool convertToTextFile(std::string bitFileName, std::string fileName);
@@ -32,7 +47,7 @@ void generateByWeekDay(std::string bitFileName, std::string group, std::string d
 std::string* splitter (std::string s, std::string delim, int size);
 
 //Обновить расписание, найти дисциплины, которые стоят на одинаковых парах в одной аудитории, и определить для них новые аудитории.
-
+void updateSchedule(std::string bitFileName, std::string newFileName);
 
 
 #endif //SIAOD2SEM_BITFILE_H

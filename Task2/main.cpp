@@ -20,28 +20,10 @@ using namespace std;
 
 int main(){
     system("chcp 65001");
-
-    string fileName = "schedule.txt";
-
-    convertToBitFile(fileName, "schedule.bin");
-    convertToTextFile("schedule.bin", "schedule2.txt");
-    printBitFile("schedule.bin");
-    cout<<endl;
-    directAccess("schedule.bin", 0);
-
-//    cout<<deleteByKey("schedule.bin", "002");
-//    cout<<"===================="<<endl;
-//    printBitFile("temp.bin");
-    generateByWeekDay("schedule.bin", "ИКБО-03-21", "4");
-
-    return 0;
-}
-
-int main1(){
-    system("chcp 65001");
     int task=-1;
 
     while ( task !=0 ){
+        cout<<endl;
         cout<<"Практическая работа 2. Смольников Алексей. ИКБО-10-21"<<endl;
         cout<<"Задание 1. Разработать программу, управления текстовым файлом."<<endl;
         cout<<"Задание 2. Разработать программу управления двоичными файлами с записями фиксированной длины. Общие требования: файл состоит из записей определенной структуры, согласно варианту. Записи имеют ключ, уникальный в пределах файла."<<endl;
@@ -63,15 +45,50 @@ int main1(){
                 cin>>func;
                 switch (func) {
                     case 1:{
+                        cout<<"Введите имя файла: ";
+                        string fileName;
+                        cin>>fileName;
+                        generateFile(fileName);
                         break;
                     }
                     case 2:{
+                        cout<<"Введите имя файла: ";
+                        string fileName;
+                        cin>>fileName;
+                        printFile(fileName);
                         break;
                     }
                     case 3:{
+                        cout<<"Введите имя файла: ";
+                        string fileName;
+                        cin>>fileName;
+                        cout<<"Введите строку: ";
+                        string str;
+                        cin>>str;
+                        appendLine(fileName, str);
                         break;
                     }
                     case 4:{
+                        cout<<"Введите имя файла: ";
+                        string fileName;
+                        cin>>fileName;
+                        cout<<"Введите номер числа: ";
+                        int num;
+                        cin>>num;
+                        cout<<"Число: "<<readNumber(fileName, num)<<endl;
+                        break;
+                    }
+                    case 5:{
+                        cout<<"Введите имя файла: ";
+                        string fileName;
+                        cin>>fileName;
+                        cout<<"Введите имя нового файла: ";
+                        string newFileName;
+                        cin>>newFileName;
+                        cout<<"Введите количество чисел в строке: ";
+                        int count;
+                        cin>>count;
+                        copyFormatted(fileName, newFileName, count);
                         break;
                     }
                     default:{
@@ -83,11 +100,97 @@ int main1(){
             }
 
             case 2: {
+                cout<<"Расписание занятий группы: номер группы, название дисциплины, номер пары, номер недели, номер дня недели, вид занятия, номер аудитории."<<endl;
+                cout<<"1 преобразование тестовых данных из текстового файла в двоичный файл;"<<endl;
+                cout<<"2 преобразование данных из двоичного файла в текстовый;"<<endl;
+                cout<<"3 вывод всех записей двоичного файла;"<<endl;
+                cout<<"4 доступ к записи по ее порядковому номеру в файле, используя механизм прямого доступа к записи в двоичном файле;"<<endl;
+                cout<<"5 удаление записи с заданным значением ключа, выполнить путем замены на последнюю запись."<<endl;
+                cout<<"6 Сформировать в двоичном файле расписание заданной группы на заданный день недели."<<endl;
+                cout<<"7 Обновить расписание, найти дисциплины, которые стоят на одинаковых парах в одной аудитории, и определить для них новые аудитории.."<<endl;
 
+                cout<<"Выберите функцию: ";
+                int func;
+                cin>>func;
+                switch (func) {
+                    case 1:{
+                        cout<<"Введите имя файла: ";
+                        string fileName;
+                        cin>>fileName;
+                        cout<<"Введите имя нового файла: ";
+                        string newFileName;
+                        cin>>newFileName;
+                        convertToBitFile(fileName, newFileName);
+                        break;
+                    }
+                    case 2:{
+                        cout<<"Введите имя файла: ";
+                        string fileName;
+                        cin>>fileName;
+                        cout<<"Введите имя нового файла: ";
+                        string newFileName;
+                        cin>>newFileName;
+                        convertToTextFile(fileName, newFileName);
+                        break;
+                    }
+                    case 3:{
+                        cout<<"Введите имя файла: ";
+                        string fileName;
+                        cin>>fileName;
+                        printBitFile(fileName);
+                        break;
+                    }
+                    case 4:{
+                        cout<<"Введите имя файла: ";
+                        string fileName;
+                        cin>>fileName;
+                        cout<<"Введите номер записи: ";
+                        int num;
+                        cin>>num;
+                        directAccess(fileName, num);
+                        break;
+                    }
+                    case 5:{
+                        cout<<"Введите имя файла: ";
+                        string fileName;
+                        cin>>fileName;
+                        cout<<"Введите ключ: ";
+                        string key;
+                        cin>>key;
+                        deleteByKey(fileName, key);
+                        break;
+                    }
+                    case 6:{
+                        cout<<"Введите имя файла: ";
+                        string fileName;
+                        cin>>fileName;
+                        cout<<"Введите номер группы: ";
+                        string group;
+                        cin>>group;
+                        cout<<"Введите номер дня недели: ";
+                        string day;
+                        cin>>day;
+                        generateByWeekDay(fileName, group, day);
+                        break;
+                    }
+                    case 7:{
+                        cout<<"Введите имя файла: ";
+                        string fileName;
+                        cin>>fileName;
+                        cout<<"Введите имя нового файла: ";
+                        string newFileName;
+                        cin>>newFileName;
+                        updateSchedule(fileName, newFileName);
+                        break;
+                    }
+                    default:{
+                        cout<<"Неверный ввод"<<endl;
+                        break;
+                    }
+                }
             }
         }
 
-        cout<<endl<<"Введите имя файла"<<endl;
     }
 
 

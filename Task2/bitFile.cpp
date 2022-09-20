@@ -18,37 +18,38 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <map>
 
-struct Record {
-    std::string hash;
-    std::string group;
-    std::string disciplineName;
-    std::string pairNumber;
-    std::string weekNumber;
-    std::string dayNumber;
-    std::string lessonType;
-    std::string roomNumber;
-
-    void cutRecord(){
-        this->hash = this->hash.substr(0);
-        this->group = this->group.substr(0, this->group.find(','));
-        this->disciplineName = this->disciplineName.substr(0, this->disciplineName.find(','));
-        this->pairNumber = this->pairNumber.substr(0, this->pairNumber.find(','));
-        this->weekNumber = this->weekNumber.substr(0, this->weekNumber.find(','));
-        this->dayNumber = this->dayNumber.substr(0, this->dayNumber.find(','));
-        this->lessonType = this->lessonType.substr(0, this->lessonType.find(','));
-        this->roomNumber = this->roomNumber.substr(0, this->roomNumber.find(','));
-    }
-
-    void printRecord(){
-        std::cout << this->group << " " << this->disciplineName << " " << this->pairNumber << " " << this->weekNumber << " " << this->dayNumber << " " << this->lessonType << " " << this->roomNumber << std::endl;
-    }
-
-    std::string createNote(){
-        std::string note = this->group + " " + this->disciplineName + " " + this->pairNumber + " " + this->weekNumber + " " + this->dayNumber + " " + this->lessonType + " " + this->roomNumber + "\n";
-        return note;
-    }
-};
+//struct Record {
+//    std::string hash;
+//    std::string group;
+//    std::string disciplineName;
+//    std::string pairNumber;
+//    std::string weekNumber;
+//    std::string dayNumber;
+//    std::string lessonType;
+//    std::string roomNumber;
+//
+//    void cutRecord(){
+//        this->hash = this->hash.substr(0);
+//        this->group = this->group.substr(0, this->group.find(','));
+//        this->disciplineName = this->disciplineName.substr(0, this->disciplineName.find(','));
+//        this->pairNumber = this->pairNumber.substr(0, this->pairNumber.find(','));
+//        this->weekNumber = this->weekNumber.substr(0, this->weekNumber.find(','));
+//        this->dayNumber = this->dayNumber.substr(0, this->dayNumber.find(','));
+//        this->lessonType = this->lessonType.substr(0, this->lessonType.find(','));
+//        this->roomNumber = this->roomNumber.substr(0, this->roomNumber.find(','));
+//    }
+//
+//    void printRecord(){
+//        std::cout << this->group << " " << this->disciplineName << " " << this->pairNumber << " " << this->weekNumber << " " << this->dayNumber << " " << this->lessonType << " " << this->roomNumber << std::endl;
+//    }
+//
+//    std::string createNote(){
+//        std::string note = this->group + " " + this->disciplineName + " " + this->pairNumber + " " + this->weekNumber + " " + this->dayNumber + " " + this->lessonType + " " + this->roomNumber + "\n";
+//        return note;
+//    }
+//};
 
 
 bool convertToBitFile(std::string fileName, std::string bitFileName){
@@ -213,4 +214,83 @@ void generateByWeekDay(std::string bitFileName, std::string group, std::string d
 
     bitFile.close();
     file.close();
+}
+
+
+customVector::customVector() {
+    data = new std::string[1];
+    size = 0;
+    capacity = 1;
+}
+void customVector::push_back(std::string s){
+    if (size == capacity){
+        std::string* temp = new std::string[capacity*2];
+        for (int i = 0; i < size; i++){
+            temp[i] = data[i];
+        }
+        delete[] data;
+        data = temp;
+        capacity *= 2;
+    }
+    data[size] = s;
+    size++;
+}
+void customVector::print(){
+    for (int i = 0; i < size; i++){
+        std::cout<<data[i]<<std::endl;
+    }
+}
+
+customVector::~customVector(){
+    delete[] data;
+}
+
+void updateSchedule(std::string bitFileName, std::string newFileName){
+
+    std::ifstream bitFile(bitFileName, std::ios::binary | std::ios::in);
+    if (!bitFile.is_open()){
+        throw std::runtime_error("File not found");
+    }
+
+    std::ofstream tempFile(newFileName, std::ios::out | std::ios::binary);
+    if (!tempFile.is_open()){
+        bitFile.close();
+        throw std::runtime_error("File not found");
+    }
+
+
+    customVector scheudele;
+    std::string s;
+    while (!bitFile.eof()){
+        std::getline(bitFile, s);
+        std::string* temp = splitter(s);
+//        s = temp[0] + " " + temp[3] + " " + temp[4] + " " + temp[5] + " " + temp[7];
+        scheudele.push_back(s);
+    }
+
+    scheudele.print();
+
+    for(int i=0;i<scheudele.size;i++){
+        std::string* temp = splitter(scheudele.data[i]);
+
+//        for(int z=0;z<8;z++){
+//            tempFile<<"!"<<temp[z];
+//        }
+//        tempFile<<std::endl;
+
+
+        for(int j=i+1;j<scheudele.size;j++){
+            std::string* temp2 = splitter(scheudele.data[j]);
+            if(temp[7]==temp2[7] && temp[3]==temp2[3] && temp[4]==temp2[4] && temp[5]==temp2[5]){
+                scheudele.data[i] = temp[0]+ " " +temp[1] + " " + temp[2] + " " + temp[3] + " " + temp[4] + " " + temp[5] + " " + temp[6] + " "  + std::to_string(200+ rand()%100);
+            }
+        }
+    }
+
+    for(int i=0;i<scheudele.size;i++){
+        tempFile<<scheudele.data[i]<<std::endl;
+    }
+
+    bitFile.close();
+    tempFile.close();
 }
