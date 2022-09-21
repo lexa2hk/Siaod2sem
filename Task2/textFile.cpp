@@ -12,7 +12,7 @@
 #include <random>
 #include <sstream>
 
-
+//генерирует файл
 bool generateFile(std::string name){
     std::ofstream file(name, std::ios::out);
     if (file.is_open()){

@@ -62,16 +62,6 @@ bool convertToBitFile(std::string fileName, std::string bitFileName){
     if (!bitFile.is_open()){
         throw std::runtime_error("File not found");
     }
-//
-//    Record record;
-//    while (!file.eof()){
-//        file >> record.group>> record.disciplineName >> record.pairNumber >> record.weekNumber >> record.dayNumber >> record.lessonType >> record.roomNumber;
-//        record.cutRecord();
-//        bitFile.write(record.createNote().c_str(), record.createNote().size());
-//        std::string s;
-//        std::getline(file, s);
-//        bitFile<<s<<std::endl;
-//    }
     bitFile << file.rdbuf();
 
     bitFile.close();
