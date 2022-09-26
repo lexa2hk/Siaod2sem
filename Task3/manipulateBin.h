@@ -1,8 +1,0 @@
-//
-// Created by lexa2k on 26.09.2022.
-//
-
-#ifndef SIAOD2SEM_MANIPULATEBIN_H
-#define SIAOD2SEM_MANIPULATEBIN_H
-
-#endif //SIAOD2SEM_MANIPULATEBIN_H

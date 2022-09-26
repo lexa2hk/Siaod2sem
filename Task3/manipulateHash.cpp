@@ -79,6 +79,8 @@ int HashTable::get(std::string key) {
 }
 
 void HashTable::rehash() {
+//    std::cout<<"Rehashing..."<<std::endl;
+
     int oldSize = size;
     size *= 2;
     Node **oldTable = table;

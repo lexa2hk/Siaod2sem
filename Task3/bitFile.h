@@ -40,7 +40,7 @@ bool convertToBitFile(std::string fileName, std::string bitFileName);
 bool convertToBitFile(std::string fileName, std::string bitFileName);
 bool convertToTextFile(std::string bitFileName, std::string fileName);
 bool printBitFile(std::string bitFileName);
-bool directAccess(std::string bitFileName, int number, int length=32);
+std::string directAccess(std::string bitFileName, int number, int length=36);
 bool deleteByKey(std::string bitFileName, std::string key, int length=32);
 
 void generateByWeekDay(std::string bitFileName, std::string group, std::string day);

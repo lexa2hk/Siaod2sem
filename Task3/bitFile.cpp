@@ -101,7 +101,7 @@ bool printBitFile(std::string bitFileName){
     return true;
 }
 
-bool directAccess(std::string bitFileName, int number, int length){
+std::string directAccess(std::string bitFileName, int number, int length){
 
     std::ifstream bitFile(bitFileName, std::ios::binary | std::ios::in);
     if (!bitFile.is_open()){
@@ -109,20 +109,27 @@ bool directAccess(std::string bitFileName, int number, int length){
     }
 
     bitFile.seekg(0, std::ios::end);
-    int size = bitFile.tellg();
+    long long size = bitFile.tellg();
+
+    bitFile.seekg(0, std::ios::beg);
+    //for 32 length
+//    if ((length*sizeof(char)+10)*number > size){
+//        bitFile.close();
+//        return "";
+//    }
     if ((length*sizeof(char)+10)*number > size){
         bitFile.close();
-        return false;
+        return "";
     }
 
-    bitFile.seekg((length*sizeof(char)+10)*number);
+    bitFile.seekg((length+10)*number);
     std::string s;
     std::getline(bitFile, s);
     std::cout<<s<<std::endl;
 
 
     bitFile.close();
-    return true;
+    return s;
 }
 
 bool deleteByKey(std::string bitFileName, std::string key, int length){
