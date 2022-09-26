@@ -95,6 +95,8 @@ bool printBitFile(std::string bitFileName){
     std::cout<<"номер группы | название дисциплины | номер пары | номер недели | номер дня недели | вид занятия | номер аудитории"<<std::endl;
     std::cout<<bitFile.rdbuf();
 
+    std::cout<<std::endl;
+
     bitFile.close();
     return true;
 }
@@ -138,26 +140,24 @@ bool deleteByKey(std::string bitFileName, std::string key, int length){
     bitFile.seekg(0, std::ios::end);
     int size = bitFile.tellg();
     bitFile.seekg(0, std::ios::beg);
-    bitFile.seekg(size - length-9);
-
-    std::string temp;
-
-    std::getline(bitFile, temp);
-
-    std::string tempNum = temp.substr(0, temp.find(' '));
-    temp = key+ temp.substr(key.size(), temp.size());
-
-    bitFile.seekg(0, std::ios::beg);
+//    bitFile.seekg(size - length-9);
+//
+//    std::string temp;
+//
+//    std::getline(bitFile, temp);
+//
+//    std::string tempNum = temp.substr(0, temp.find(' '));
+//    temp = key+ temp.substr(key.size(), temp.size());
+//
+//    bitFile.seekg(0, std::ios::beg);
 
     std::string s;
     while (!bitFile.eof()){
         std::getline(bitFile, s);
-        if(s.substr(0, key.size()) != key && s.substr(0, key.size()) != tempNum){
+        if(s.substr(0, key.size()) != key){
             tempFile<<s<<std::endl;
-        } else if (s.substr(0, key.size()) == tempNum){
-
         }else{
-            tempFile << temp << std::endl;
+            break;
         }
     }
 
@@ -283,4 +283,37 @@ void updateSchedule(std::string bitFileName, std::string newFileName){
 
     bitFile.close();
     tempFile.close();
+}
+
+bool addNoteToFile(std::string bitFileName, std::string note, int length){
+    std::fstream bitFile(bitFileName, std::ios::binary| std::ios::out | std::ios::app);
+    if (!bitFile.is_open()){
+        return false;
+    }
+
+    bitFile<<note<<std::endl;
+    bitFile.close();
+    return true;
+}
+
+
+int testBinF(){
+    std::string bitFileName = "schedule.bin";
+
+    convertToBitFile("schedule.txt", bitFileName);
+
+    printBitFile(bitFileName);
+
+    addNoteToFile(bitFileName, "\n005 ИКБО-04-21 пр4 2 1 4 сем 210");
+
+    printBitFile(bitFileName);
+
+    deleteByKey(bitFileName, "005");
+
+    printBitFile(bitFileName);
+
+    directAccess(bitFileName, 2);
+
+
+    return 0;
 }

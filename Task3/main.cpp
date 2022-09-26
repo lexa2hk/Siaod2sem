@@ -3,11 +3,13 @@
 //
 #include <iostream>
 #include "manipulateHash.h"
+#include "bitFile.h"
 using namespace std;
 
 int main() {
-    cout << "Hello, World!" << endl;
+    system("chcp 65001");
 
-    testHeshT();
+
+
     return 0;
 }

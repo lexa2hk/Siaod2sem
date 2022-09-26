@@ -49,5 +49,7 @@ std::string* splitter (std::string s, std::string delim, int size);
 //Обновить расписание, найти дисциплины, которые стоят на одинаковых парах в одной аудитории, и определить для них новые аудитории.
 void updateSchedule(std::string bitFileName, std::string newFileName);
 
+bool addNoteToFile(std::string bitFileName, std::string note, int length=32);
+int testBinF();
 
-#endif //SIAOD2SEM_BITFILE_H
+#endif SIAOD2SEM_BITFILE_H
