@@ -3,4 +3,4 @@ project(Siaod2sem)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(Siaod2sem Task2/main.cpp Task2/textFile.cpp Task2/textFile.h Task2/bitFile.h Task2/bitFile.cpp)
+add_executable(Siaod2sem Task3/main.cpp Task3/manipulateHash.h Task3/manipulateBin.h Task3/manipulateHash.cpp)
