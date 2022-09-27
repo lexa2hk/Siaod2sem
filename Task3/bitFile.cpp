@@ -117,12 +117,12 @@ std::string directAccess(std::string bitFileName, int number, int length){
 //        bitFile.close();
 //        return "";
 //    }
-    if ((length*sizeof(char)+10)*number > size){
+    if ((length*sizeof(char))*number > size){
         bitFile.close();
         return "";
     }
 
-    bitFile.seekg((length+10)*number);
+    bitFile.seekg((length)*number);
     std::string s;
     std::getline(bitFile, s);
     std::cout<<s<<std::endl;

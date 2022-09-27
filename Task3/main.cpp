@@ -25,7 +25,6 @@ int main() {
     //measure time
     auto start = chrono::high_resolution_clock::now();
     getByKeyHash(hashTable, bitFileName, "00591551");
-//    cout<<hashTable.get("00591551")<<endl;
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
     cout << "Time taken by function: "
