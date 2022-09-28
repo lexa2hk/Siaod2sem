@@ -11,7 +11,7 @@
 using namespace std;
 
 int main() {
-    system("chcp 65001");\
+    system("chcp 65001");
 
 //    generateBinaryFile("extraLarge.bin", 500000);
 
