@@ -14,5 +14,7 @@ void deleteByKeyHash(HashTable &hashTable, std::string bitFileName, std::string 
 
 void getByKeyHash(HashTable &hashTable, std::string bitFileName, std::string key);
 
+void insertNoteToHash(std::string file, int note, HashTable &hashTable);
+
 
 #endif //SIAOD2SEM_MANIPULATEBINHASH_H

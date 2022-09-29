@@ -110,7 +110,7 @@ void HashTable::print() {
     for (int i = 0; i < size; i++) {
         Node *node = table[i];
         while (node != nullptr) {
-            std::cout << node->key << " " << node->value << std::endl;
+            std::cout<< i<< " | " << node->key << " " << node->value << std::endl;
             node = node->next;
         }
     }
@@ -151,7 +151,7 @@ int testHeshT(){
     hashTable.add("keyRehash", 1, true);
 
     hashTable.print();
-   std::cout<<"after rehash add "<<hashTable.size;
+   std::cout<<"after rehash add "<<hashTable.size<<std::endl;
 
     return 0;
 }

@@ -34,6 +34,16 @@ void migrateBinHash(HashTable &hashTable, std::string bitFileName,int number) {
     }
 }
 
+void insertNoteToHash(std::string file, int note, HashTable &hashTable){
+    std::string temp = directAccess(file, note);
+    if(temp.length()==0){
+        std::cout<<"Error";
+        return;
+    }
+    hashTable.add(temp.substr(0,temp.find(' ')), note);
+}
+
+
 void deleteByKeyHash(HashTable &hashTable, std::string bitFileName,std::string key) {
     int number = hashTable.get(key);
     if(number==-1){
