@@ -19,6 +19,7 @@ int main() {
     int choice=1;
     unsigned int inp;
 
+    HashTable hashTable;
     while(choice!=0){
         cout<<"Лабораторная работа №2. 'Применение хеш-таблицы для поиска данных в двоичном файле с записями фиксированной длины.'. Смольников Алексей. Вариант 22"<<endl;
         cout<<"1) Прочитать запись из файла и вставить элемент в таблицу"<<endl;
@@ -29,7 +30,7 @@ int main() {
         cout<<"6) Запустить testHeshT"<<endl;
         cout<<"Выберите номер задания (0-выход)"<<endl;
         cin>>choice;
-        HashTable hashTable;
+
         switch (choice) {
             case 1: {
                 cout << "Введите номер записи" << endl;
@@ -38,17 +39,18 @@ int main() {
                 string file;
                 cin >> file;
 
-                migrateBinHash(hashTable, file);
+                migrateBinHash(hashTable, file, inp);
                 hashTable.print();
             }
                 break;
             case 2:{
+                string key;
                 cout << "Введите ключ" << endl;
-                cin >> inp;
+                cin >> key;
                 cout << "Введите имя файла" << endl;
                 string file;
                 cin >> file;
-                deleteByKeyHash(hashTable, file, to_string(inp));
+                deleteByKeyHash(hashTable, file,key);
 
                 break;
             }
@@ -94,8 +96,12 @@ int main() {
             case 5:
                 testBinF();
                 break;
-            case 6:
+            case 6: {
                 testHeshT();
+                break;
+            }
+            case 7:
+                hashTable.print();
                 break;
             default:
                 break;

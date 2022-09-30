@@ -163,8 +163,6 @@ bool deleteByKey(std::string bitFileName, std::string key, int length){
         std::getline(bitFile, s);
         if(s.substr(0, key.size()) != key){
             tempFile<<s<<std::endl;
-        }else{
-            break;
         }
     }
 

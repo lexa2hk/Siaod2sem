@@ -133,7 +133,10 @@ int testHeshT(){
     hashTable.remove("key1");
     std::cout<<std::endl;
 
+    hashTable.get("key1");
+
     hashTable.print();
+    hashTable.add("key1", 1000);
 
     //hash test
    std::cout<<hashTable.hash("key1")<<std::endl;
