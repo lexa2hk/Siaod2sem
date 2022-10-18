@@ -20,37 +20,20 @@
 #include <iomanip>
 #include <map>
 
-//struct Record {
-//    std::string hash;
-//    std::string group;
-//    std::string disciplineName;
-//    std::string pairNumber;
-//    std::string weekNumber;
-//    std::string dayNumber;
-//    std::string lessonType;
-//    std::string roomNumber;
-//
-//    void cutRecord(){
-//        this->hash = this->hash.substr(0);
-//        this->group = this->group.substr(0, this->group.find(','));
-//        this->disciplineName = this->disciplineName.substr(0, this->disciplineName.find(','));
-//        this->pairNumber = this->pairNumber.substr(0, this->pairNumber.find(','));
-//        this->weekNumber = this->weekNumber.substr(0, this->weekNumber.find(','));
-//        this->dayNumber = this->dayNumber.substr(0, this->dayNumber.find(','));
-//        this->lessonType = this->lessonType.substr(0, this->lessonType.find(','));
-//        this->roomNumber = this->roomNumber.substr(0, this->roomNumber.find(','));
-//    }
-//
-//    void printRecord(){
-//        std::cout << this->group << " " << this->disciplineName << " " << this->pairNumber << " " << this->weekNumber << " " << this->dayNumber << " " << this->lessonType << " " << this->roomNumber << std::endl;
-//    }
-//
-//    std::string createNote(){
-//        std::string note = this->group + " " + this->disciplineName + " " + this->pairNumber + " " + this->weekNumber + " " + this->dayNumber + " " + this->lessonType + " " + this->roomNumber + "\n";
-//        return note;
-//    }
-//};
 
+struct Record{
+    char* key[9];
+    char* group[11];
+    char* disciplineName[4];
+    char* week[2];
+    char* number[2];
+    char* day[2];
+    char* type[4];
+    char* aud[4];
+
+};
+
+static int RECORD_SIZE = sizeof(Record);
 
 bool convertToBitFile(std::string fileName, std::string bitFileName){
     std::ifstream file(fileName, std::ios::in);
@@ -108,12 +91,16 @@ bool directAccess(std::string bitFileName, int number, int length){
 
     bitFile.seekg(0, std::ios::end);
     int size = bitFile.tellg();
-    if ((length*sizeof(char)+10)*number > size){
+    if ((length+10)*number > size){
         bitFile.close();
         return false;
     }
 
     bitFile.seekg((length*sizeof(char)+10)*number);
+
+    Record record;
+    bitFile.read(reinterpret_cast<char*>(&record),RECORD_SIZE);
+
     std::string s;
     std::getline(bitFile, s);
     std::cout<<s<<std::endl;

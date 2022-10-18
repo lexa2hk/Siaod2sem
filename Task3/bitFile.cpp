@@ -1,18 +1,6 @@
 //
 // Created by lexa2k on 17.09.2022.
 
-//Структура записи
-//Расписание занятий группы: номер группы, название дисциплины, номер пары, номер недели, номер дня недели, вид занятия, номер аудитории.
-//Доп. операция
-//Сформировать в двоичном файле расписание заданной группы на заданный день недели.
-//Обновить расписание, найти дисциплины, которые стоят на одинаковых парах в одной аудитории, и определить для них новые аудитории.
-
-//001 ИКБО-10-21 Пр1 1 1 7 сем 223
-//002 ИКБО-01-21 Пр2 2 1 7 сем 223
-//003 ИКБО-02-21 Пр3 2 1 7 сем 220
-//004 ИКБО-03-21 пр4 2 1 4 сем 220
-//005 ИКБО-03-21 пр4 2 1 4 сем 220
-
 #include "bitFile.h"
 #include <fstream>
 #include <iostream>
@@ -20,71 +8,45 @@
 #include <iomanip>
 #include <map>
 
-//struct Record {
-//    std::string hash;
-//    std::string group;
-//    std::string disciplineName;
-//    std::string pairNumber;
-//    std::string weekNumber;
-//    std::string dayNumber;
-//    std::string lessonType;
-//    std::string roomNumber;
-//
-//    void cutRecord(){
-//        this->hash = this->hash.substr(0);
-//        this->group = this->group.substr(0, this->group.find(','));
-//        this->disciplineName = this->disciplineName.substr(0, this->disciplineName.find(','));
-//        this->pairNumber = this->pairNumber.substr(0, this->pairNumber.find(','));
-//        this->weekNumber = this->weekNumber.substr(0, this->weekNumber.find(','));
-//        this->dayNumber = this->dayNumber.substr(0, this->dayNumber.find(','));
-//        this->lessonType = this->lessonType.substr(0, this->lessonType.find(','));
-//        this->roomNumber = this->roomNumber.substr(0, this->roomNumber.find(','));
-//    }
-//
-//    void printRecord(){
-//        std::cout << this->group << " " << this->disciplineName << " " << this->pairNumber << " " << this->weekNumber << " " << this->dayNumber << " " << this->lessonType << " " << this->roomNumber << std::endl;
-//    }
-//
-//    std::string createNote(){
-//        std::string note = this->group + " " + this->disciplineName + " " + this->pairNumber + " " + this->weekNumber + " " + this->dayNumber + " " + this->lessonType + " " + this->roomNumber + "\n";
-//        return note;
-//    }
-//};
 
-
-bool convertToBitFile(std::string fileName, std::string bitFileName){
-    std::ifstream file(fileName, std::ios::in);
-    if (!file.is_open()){
-        throw std::runtime_error("File not found");
-    }
-
-    std::ofstream bitFile(bitFileName, std::ios::binary | std::ios::out);
-    if (!bitFile.is_open()){
-        throw std::runtime_error("File not found");
-    }
-    bitFile << file.rdbuf();
-
-    bitFile.close();
-    file.close();
-    return true;
+void printRecord(Record record){
+    std::cout << record.key << " " << record.group << " " << record.disciplineName << " " << record.week << " " << record.number << " " << record.day << " " << record.type << " " << record.aud << std::endl;
 }
 
-bool convertToTextFile(std::string bitFileName, std::string fileName){
-    std::ifstream bitFile(bitFileName, std::ios::binary | std::ios::in);
-    if (!bitFile.is_open()){
-        throw std::runtime_error("File not found");
-    }
 
-    std::ofstream file(fileName, std::ios::out);
-    if (!file.is_open()){
-        throw std::runtime_error("File not found");
-    }
-    file<<bitFile.rdbuf();
+//bool convertToBitFile(std::string fileName, std::string bitFileName){
+//    std::ifstream file(fileName, std::ios::in);
+//    if (!file.is_open()){
+//        throw std::runtime_error("File not found");
+//    }
+//
+//    std::ofstream bitFile(bitFileName, std::ios::binary | std::ios::out);
+//    if (!bitFile.is_open()){
+//        throw std::runtime_error("File not found");
+//    }
+//    bitFile << file.rdbuf();
+//
+//    bitFile.close();
+//    file.close();
+//    return true;
+//}
 
-    bitFile.close();
-    file.close();
-    return true;
-}
+//bool convertToTextFile(std::string bitFileName, std::string fileName){
+//    std::ifstream bitFile(bitFileName, std::ios::binary | std::ios::in);
+//    if (!bitFile.is_open()){
+//        throw std::runtime_error("File not found");
+//    }
+//
+//    std::ofstream file(fileName, std::ios::out);
+//    if (!file.is_open()){
+//        throw std::runtime_error("File not found");
+//    }
+//    file<<bitFile.rdbuf();
+//
+//    bitFile.close();
+//    file.close();
+//    return true;
+//}
 
 bool printBitFile(std::string bitFileName){
     std::ifstream bitFile(bitFileName, std::ios::binary | std::ios::in);
@@ -93,7 +55,11 @@ bool printBitFile(std::string bitFileName){
     }
 
     std::cout<<"номер группы | название дисциплины | номер пары | номер недели | номер дня недели | вид занятия | номер аудитории"<<std::endl;
-    std::cout<<bitFile.rdbuf();
+
+    Record record;
+    while (bitFile.read((char*)&record, RECORD_SIZE)){
+        printRecord(record);
+    }
 
     std::cout<<std::endl;
 
@@ -101,7 +67,7 @@ bool printBitFile(std::string bitFileName){
     return true;
 }
 
-std::string directAccess(std::string bitFileName, int number, int length){
+Record directAccess(std::string bitFileName, int number, int length){
 
     std::ifstream bitFile(bitFileName, std::ios::binary | std::ios::in);
     if (!bitFile.is_open()){
@@ -112,24 +78,18 @@ std::string directAccess(std::string bitFileName, int number, int length){
     long long size = bitFile.tellg();
 
     bitFile.seekg(0, std::ios::beg);
-    //for 32 length
-//    if ((length*sizeof(char)+10)*number > size){
-//        bitFile.close();
-//        return "";
-//    }
     if ((length*sizeof(char))*number > size){
         bitFile.close();
-        return "";
+        return {};
     }
 
     bitFile.seekg((length)*number);
-    std::string s;
-    std::getline(bitFile, s);
-    std::cout<<s<<std::endl;
 
+    Record record;
+    bitFile.read((char*)&record, sizeof(record));
 
     bitFile.close();
-    return s;
+    return record;
 }
 
 bool deleteByKey(std::string bitFileName, std::string key, int length){
@@ -147,23 +107,14 @@ bool deleteByKey(std::string bitFileName, std::string key, int length){
     bitFile.seekg(0, std::ios::end);
     int size = bitFile.tellg();
     bitFile.seekg(0, std::ios::beg);
-//    bitFile.seekg(size - length-9);
-//
-//    std::string temp;
-//
-//    std::getline(bitFile, temp);
-//
-//    std::string tempNum = temp.substr(0, temp.find(' '));
-//    temp = key+ temp.substr(key.size(), temp.size());
-//
-//    bitFile.seekg(0, std::ios::beg);
 
     std::string s;
-    while (!bitFile.eof()){
-        std::getline(bitFile, s);
-        if(s.substr(0, key.size()) != key){
-            tempFile<<s<<std::endl;
+    Record record;
+    while ( bitFile.read((char*)&record, sizeof(record))){
+        if (record.key == key){
+            continue;
         }
+        tempFile.write((char*)&record, sizeof(record));
     }
 
     bitFile.close();
@@ -178,146 +129,147 @@ bool deleteByKey(std::string bitFileName, std::string key, int length){
 
 }
 
-std::string* splitter (std::string s, std::string delim = " ", int size =8){
-    std::string* result = new std::string[size];
-    int i = 0;
-    while (s.find(delim) != std::string::npos){
-        result[i] = s.substr(0, s.find(delim));
-        s = s.substr(s.find(delim)+1, s.size());
-        i++;
-    }
-    result[i] = s;
-    return result;
-}
+//std::string* splitter (std::string s, std::string delim = " ", int size =8){
+//    std::string* result = new std::string[size];
+//    int i = 0;
+//    while (s.find(delim) != std::string::npos){
+//        result[i] = s.substr(0, s.find(delim));
+//        s = s.substr(s.find(delim)+1, s.size());
+//        i++;
+//    }
+//    result[i] = s;
+//    return result;
+//}
 
-void generateByWeekDay(std::string bitFileName, std::string group, std::string day){
-    std::ifstream bitFile(bitFileName, std::ios::binary | std::ios::in);
-    if (!bitFile.is_open()){
-        throw std::runtime_error("File not found");
-    }
-
-    std::ofstream file("generated.bin", std::ios::out | std::ios::binary);
-
-    std::string s;
-    while (!bitFile.eof()){
-        std::getline(bitFile, s);
-        std::string* temp = splitter(s);
-        if (temp[1] == group && temp[5] == day){
-            file<<s<<std::endl;
-        }
-    }
-
-    bitFile.close();
-    file.close();
-}
-
-
-customVector::customVector() {
-    data = new std::string[1];
-    size = 0;
-    capacity = 1;
-}
-void customVector::push_back(std::string s){
-    if (size == capacity){
-        std::string* temp = new std::string[capacity*2];
-        for (int i = 0; i < size; i++){
-            temp[i] = data[i];
-        }
-        delete[] data;
-        data = temp;
-        capacity *= 2;
-    }
-    data[size] = s;
-    size++;
-}
-void customVector::print(){
-    for (int i = 0; i < size; i++){
-        std::cout<<data[i]<<std::endl;
-    }
-}
-
-customVector::~customVector(){
-    delete[] data;
-}
-
-void updateSchedule(std::string bitFileName, std::string newFileName){
-
-    std::ifstream bitFile(bitFileName, std::ios::binary | std::ios::in);
-    if (!bitFile.is_open()){
-        throw std::runtime_error("File not found");
-    }
-
-    std::ofstream tempFile(newFileName, std::ios::out | std::ios::binary);
-    if (!tempFile.is_open()){
-        bitFile.close();
-        throw std::runtime_error("File not found");
-    }
-
-
-    customVector scheudele;
-    std::string s;
-    while (!bitFile.eof()){
-        std::getline(bitFile, s);
-        std::string* temp = splitter(s);
-//        s = temp[0] + " " + temp[3] + " " + temp[4] + " " + temp[5] + " " + temp[7];
-        scheudele.push_back(s);
-    }
-
-    scheudele.print();
-
-    for(int i=0;i<scheudele.size;i++){
-        std::string* temp = splitter(scheudele.data[i]);
-
-//        for(int z=0;z<8;z++){
-//            tempFile<<"!"<<temp[z];
+//void generateByWeekDay(std::string bitFileName, std::string group, std::string day){
+//    std::ifstream bitFile(bitFileName, std::ios::binary | std::ios::in);
+//    if (!bitFile.is_open()){
+//        throw std::runtime_error("File not found");
+//    }
+//
+//    std::ofstream file("generated.bin", std::ios::out | std::ios::binary);
+//
+//    std::string s;
+//    while (!bitFile.eof()){
+//        std::getline(bitFile, s);
+//        std::string* temp = splitter(s);
+//        if (temp[1] == group && temp[5] == day){
+//            file<<s<<std::endl;
 //        }
-//        tempFile<<std::endl;
+//    }
+//
+//    bitFile.close();
+//    file.close();
+//}
 
+//
+//customVector::customVector() {
+//    data = new std::string[1];
+//    size = 0;
+//    capacity = 1;
+//}
+//void customVector::push_back(std::string s){
+//    if (size == capacity){
+//        std::string* temp = new std::string[capacity*2];
+//        for (int i = 0; i < size; i++){
+//            temp[i] = data[i];
+//        }
+//        delete[] data;
+//        data = temp;
+//        capacity *= 2;
+//    }
+//    data[size] = s;
+//    size++;
+//}
+//void customVector::print(){
+//    for (int i = 0; i < size; i++){
+//        std::cout<<data[i]<<std::endl;
+//    }
+//}
+//
+//customVector::~customVector(){
+//    delete[] data;
+//}
+//
+//void updateSchedule(std::string bitFileName, std::string newFileName){
+//
+//    std::ifstream bitFile(bitFileName, std::ios::binary | std::ios::in);
+//    if (!bitFile.is_open()){
+//        throw std::runtime_error("File not found");
+//    }
+//
+//    std::ofstream tempFile(newFileName, std::ios::out | std::ios::binary);
+//    if (!tempFile.is_open()){
+//        bitFile.close();
+//        throw std::runtime_error("File not found");
+//    }
+//
+//
+//    customVector scheudele;
+//    std::string s;
+//    while (!bitFile.eof()){
+//        std::getline(bitFile, s);
+//        std::string* temp = splitter(s);
+////        s = temp[0] + " " + temp[3] + " " + temp[4] + " " + temp[5] + " " + temp[7];
+//        scheudele.push_back(s);
+//    }
+//
+//    scheudele.print();
+//
+//    for(int i=0;i<scheudele.size;i++){
+//        std::string* temp = splitter(scheudele.data[i]);
+//
+////        for(int z=0;z<8;z++){
+////            tempFile<<"!"<<temp[z];
+////        }
+////        tempFile<<std::endl;
+//
+//
+//        for(int j=i+1;j<scheudele.size;j++){
+//            std::string* temp2 = splitter(scheudele.data[j]);
+//            if(temp[7]==temp2[7] && temp[3]==temp2[3] && temp[4]==temp2[4] && temp[5]==temp2[5]){
+//                scheudele.data[i] = temp[0]+ " " +temp[1] + " " + temp[2] + " " + temp[3] + " " + temp[4] + " " + temp[5] + " " + temp[6] + " "  + std::to_string(200+ rand()%100);
+//            }
+//        }
+//    }
+//
+//    for(int i=0;i<scheudele.size;i++){
+//        tempFile<<scheudele.data[i]<<std::endl;
+//    }
+//
+//    bitFile.close();
+//    tempFile.close();
+//}
 
-        for(int j=i+1;j<scheudele.size;j++){
-            std::string* temp2 = splitter(scheudele.data[j]);
-            if(temp[7]==temp2[7] && temp[3]==temp2[3] && temp[4]==temp2[4] && temp[5]==temp2[5]){
-                scheudele.data[i] = temp[0]+ " " +temp[1] + " " + temp[2] + " " + temp[3] + " " + temp[4] + " " + temp[5] + " " + temp[6] + " "  + std::to_string(200+ rand()%100);
-            }
-        }
-    }
-
-    for(int i=0;i<scheudele.size;i++){
-        tempFile<<scheudele.data[i]<<std::endl;
-    }
-
-    bitFile.close();
-    tempFile.close();
-}
-
-bool addNoteToFile(std::string bitFileName, std::string note, int length){
+bool addNoteToFile(std::string bitFileName, Record note, int length){
     std::fstream bitFile(bitFileName, std::ios::binary| std::ios::out | std::ios::app);
     if (!bitFile.is_open()){
         return false;
     }
 
-    bitFile<<note<<std::endl;
+    bitFile.write((char*)&note, length);
     bitFile.close();
     return true;
 }
 
 
 int testBinF(){
-    std::string bitFileName = "schedule.bin";
 
-    convertToBitFile("schedule.txt", bitFileName);
+    std::string bitFileName = "trueBinShort.bin";
 
-    printBitFile(bitFileName);
-
-    addNoteToFile(bitFileName, "\n005 ИКБО-04-21 пр4 2 1 4 сем 210");
+    Record record = {"00465001","5322703905","664","0","8","9","034","817"};
 
     printBitFile(bitFileName);
 
-    deleteByKey(bitFileName, "005");
+    addNoteToFile(bitFileName, record, sizeof(record));
 
     printBitFile(bitFileName);
 
-    directAccess(bitFileName, 2);
+    deleteByKey(bitFileName, "00465001");
+
+    printBitFile(bitFileName);
+    std::cout<<std::endl;
+    directAccess(bitFileName, 0);
 
 
     return 0;

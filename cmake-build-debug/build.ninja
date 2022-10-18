@@ -49,23 +49,35 @@ cmake_ninja_workdir = C$:/Users/lexa2k/Desktop/RTU_SEM2/Siaod2sem/cmake-build-de
 
 build cmake_object_order_depends_target_Siaod2sem: phony || CMakeFiles/Siaod2sem.dir
 
-build CMakeFiles/Siaod2sem.dir/Task2/main.cpp.obj: CXX_COMPILER__Siaod2sem_Debug C$:/Users/lexa2k/Desktop/RTU_SEM2/Siaod2sem/Task2/main.cpp || cmake_object_order_depends_target_Siaod2sem
-  DEP_FILE = CMakeFiles\Siaod2sem.dir\Task2\main.cpp.obj.d
+build CMakeFiles/Siaod2sem.dir/Task3/main.cpp.obj: CXX_COMPILER__Siaod2sem_Debug C$:/Users/lexa2k/Desktop/RTU_SEM2/Siaod2sem/Task3/main.cpp || cmake_object_order_depends_target_Siaod2sem
+  DEP_FILE = CMakeFiles\Siaod2sem.dir\Task3\main.cpp.obj.d
   FLAGS = -g -std=gnu++23
   OBJECT_DIR = CMakeFiles\Siaod2sem.dir
-  OBJECT_FILE_DIR = CMakeFiles\Siaod2sem.dir\Task2
+  OBJECT_FILE_DIR = CMakeFiles\Siaod2sem.dir\Task3
 
-build CMakeFiles/Siaod2sem.dir/Task2/textFile.cpp.obj: CXX_COMPILER__Siaod2sem_Debug C$:/Users/lexa2k/Desktop/RTU_SEM2/Siaod2sem/Task2/textFile.cpp || cmake_object_order_depends_target_Siaod2sem
-  DEP_FILE = CMakeFiles\Siaod2sem.dir\Task2\textFile.cpp.obj.d
+build CMakeFiles/Siaod2sem.dir/Task3/manipulateHash.cpp.obj: CXX_COMPILER__Siaod2sem_Debug C$:/Users/lexa2k/Desktop/RTU_SEM2/Siaod2sem/Task3/manipulateHash.cpp || cmake_object_order_depends_target_Siaod2sem
+  DEP_FILE = CMakeFiles\Siaod2sem.dir\Task3\manipulateHash.cpp.obj.d
   FLAGS = -g -std=gnu++23
   OBJECT_DIR = CMakeFiles\Siaod2sem.dir
-  OBJECT_FILE_DIR = CMakeFiles\Siaod2sem.dir\Task2
+  OBJECT_FILE_DIR = CMakeFiles\Siaod2sem.dir\Task3
 
-build CMakeFiles/Siaod2sem.dir/Task2/bitFile.cpp.obj: CXX_COMPILER__Siaod2sem_Debug C$:/Users/lexa2k/Desktop/RTU_SEM2/Siaod2sem/Task2/bitFile.cpp || cmake_object_order_depends_target_Siaod2sem
-  DEP_FILE = CMakeFiles\Siaod2sem.dir\Task2\bitFile.cpp.obj.d
+build CMakeFiles/Siaod2sem.dir/Task3/bitFile.cpp.obj: CXX_COMPILER__Siaod2sem_Debug C$:/Users/lexa2k/Desktop/RTU_SEM2/Siaod2sem/Task3/bitFile.cpp || cmake_object_order_depends_target_Siaod2sem
+  DEP_FILE = CMakeFiles\Siaod2sem.dir\Task3\bitFile.cpp.obj.d
   FLAGS = -g -std=gnu++23
   OBJECT_DIR = CMakeFiles\Siaod2sem.dir
-  OBJECT_FILE_DIR = CMakeFiles\Siaod2sem.dir\Task2
+  OBJECT_FILE_DIR = CMakeFiles\Siaod2sem.dir\Task3
+
+build CMakeFiles/Siaod2sem.dir/Task3/manupulateBinHash.cpp.obj: CXX_COMPILER__Siaod2sem_Debug C$:/Users/lexa2k/Desktop/RTU_SEM2/Siaod2sem/Task3/manupulateBinHash.cpp || cmake_object_order_depends_target_Siaod2sem
+  DEP_FILE = CMakeFiles\Siaod2sem.dir\Task3\manupulateBinHash.cpp.obj.d
+  FLAGS = -g -std=gnu++23
+  OBJECT_DIR = CMakeFiles\Siaod2sem.dir
+  OBJECT_FILE_DIR = CMakeFiles\Siaod2sem.dir\Task3
+
+build CMakeFiles/Siaod2sem.dir/Task3/binaryGenerator.cpp.obj: CXX_COMPILER__Siaod2sem_Debug C$:/Users/lexa2k/Desktop/RTU_SEM2/Siaod2sem/Task3/binaryGenerator.cpp || cmake_object_order_depends_target_Siaod2sem
+  DEP_FILE = CMakeFiles\Siaod2sem.dir\Task3\binaryGenerator.cpp.obj.d
+  FLAGS = -g -std=gnu++23
+  OBJECT_DIR = CMakeFiles\Siaod2sem.dir
+  OBJECT_FILE_DIR = CMakeFiles\Siaod2sem.dir\Task3
 
 
 # =============================================================================
@@ -75,7 +87,7 @@ build CMakeFiles/Siaod2sem.dir/Task2/bitFile.cpp.obj: CXX_COMPILER__Siaod2sem_De
 #############################################
 # Link the executable Siaod2sem.exe
 
-build Siaod2sem.exe: CXX_EXECUTABLE_LINKER__Siaod2sem_Debug CMakeFiles/Siaod2sem.dir/Task2/main.cpp.obj CMakeFiles/Siaod2sem.dir/Task2/textFile.cpp.obj CMakeFiles/Siaod2sem.dir/Task2/bitFile.cpp.obj
+build Siaod2sem.exe: CXX_EXECUTABLE_LINKER__Siaod2sem_Debug CMakeFiles/Siaod2sem.dir/Task3/main.cpp.obj CMakeFiles/Siaod2sem.dir/Task3/manipulateHash.cpp.obj CMakeFiles/Siaod2sem.dir/Task3/bitFile.cpp.obj CMakeFiles/Siaod2sem.dir/Task3/manupulateBinHash.cpp.obj CMakeFiles/Siaod2sem.dir/Task3/binaryGenerator.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Siaod2sem.dir

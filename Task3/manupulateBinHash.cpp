@@ -18,29 +18,29 @@ void migrateBinHash(HashTable &hashTable, std::string bitFileName,int number) {
 
     if(number==-1){
         while(!bitFile.eof()){
-            std::string temp;
-            std::getline(bitFile,temp);
-            hashTable.add(temp.substr(0,temp.find(' ')), cnt);
+            Record record;
+            bitFile.read((char*)&record, sizeof(Record));
+            hashTable.add(record.key, cnt);
             cnt++;
         }
     }else{
         std::string temp;
-        temp = directAccess(bitFileName, number);
-        if(temp.length()==0){
+        temp = directAccess(bitFileName, number).key;
+        if(temp.length()<8){
             std::cout<<"Error";
             return;
         }
-        hashTable.add(temp.substr(0,temp.find(' ')), number);
+        hashTable.add(temp, number);
     }
 }
 
 void insertNoteToHash(std::string file, int note, HashTable &hashTable){
-    std::string temp = directAccess(file, note);
+    std::string temp = directAccess(file, note).key;
     if(temp.length()==0){
         std::cout<<"Error";
         return;
     }
-    hashTable.add(temp.substr(0,temp.find(' ')), note);
+    hashTable.add(temp, note);
 }
 
 
@@ -61,7 +61,7 @@ void getByKeyHash(HashTable &hashTable, std::string bitFileName,std::string key)
         return;
     }
 
-    directAccess(bitFileName, number);
+    printRecord(directAccess(bitFileName, number));
 }
 
 

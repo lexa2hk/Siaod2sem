@@ -9,10 +9,22 @@
 #include <chrono>
 
 using namespace std;
+//
+//int main(){
+//    system("chcp 65001");
+//    //generateBinaryFile("trueBinShort.bin", 3);
+//    printRecord(directAccess("trueBin.bin", 999));
+//
+//    testBinF();
+//    testHeshT();
+//    return 0;
+//}
 
 
 int main() {
     system("chcp 65001");
+
+    //generateBinaryFile("trueBinLarge.bin", 1000000);
 
 
     //create switch-case menu for 5 elements where 0 calls exit
@@ -66,27 +78,27 @@ int main() {
             }
             case 4:{
                 HashTable hashTable1;
-                string bitFileName = "extraLarge.bin";
+                string bitFileName = "trueBinLarge.bin";
 
                 migrateBinHash(hashTable1, bitFileName);
 
                 //measure time
                 auto start = chrono::high_resolution_clock::now();
-                getByKeyHash(hashTable1, bitFileName, "00591551");
+                getByKeyHash(hashTable1, bitFileName, "00437843");
                 auto end = chrono::high_resolution_clock::now();
                 auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
                 cout << "Time taken by function: "
                      << duration.count() << " microseconds" << endl;
 
                 start = chrono::high_resolution_clock::now();
-                getByKeyHash(hashTable1, bitFileName, "00035075");
+                getByKeyHash(hashTable1, bitFileName, "006255414");
                 end = chrono::high_resolution_clock::now();
                 duration = chrono::duration_cast<chrono::microseconds>(end - start);
                 cout << "Time taken by function: "
                      << duration.count() << " microseconds" << endl;
 
                 start = chrono::high_resolution_clock::now();
-                getByKeyHash(hashTable1, bitFileName, "00397588");
+                getByKeyHash(hashTable1, bitFileName, "00592629");
                 end = chrono::high_resolution_clock::now();
                 duration = chrono::duration_cast<chrono::microseconds>(end - start);
                 cout << "Time taken by function: "
@@ -111,41 +123,41 @@ int main() {
     return 0;
 }
 
-int main1() {
-    system("chcp 65001");
-
-//    generateBinaryFile("extraLarge.bin", 500000);
-
-    HashTable hashTable;
-    string bitFileName = "extraLarge.bin";
-
-
-    migrateBinHash(hashTable, bitFileName);
-    getByKeyHash(hashTable, bitFileName, "00284681");
-
-    //measure time
-    auto start = chrono::high_resolution_clock::now();
-    getByKeyHash(hashTable, bitFileName, "00591551");
-    auto end = chrono::high_resolution_clock::now();
-    auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
-    cout << "Time taken by function: "
-         << duration.count() << " microseconds" << endl;
-
-    start = chrono::high_resolution_clock::now();
-    getByKeyHash(hashTable, bitFileName, "00035075");
-    end = chrono::high_resolution_clock::now();
-    duration = chrono::duration_cast<chrono::microseconds>(end - start);
-    cout << "Time taken by function: "
-         << duration.count() << " microseconds" << endl;
-
-    start = chrono::high_resolution_clock::now();
-    getByKeyHash(hashTable, bitFileName, "00397588");
-    end = chrono::high_resolution_clock::now();
-    duration = chrono::duration_cast<chrono::microseconds>(end - start);
-    cout << "Time taken by function: "
-         << duration.count() << " microseconds" << endl;
-
-
-
-    return 0;
-}
+//int main1() {
+//    system("chcp 65001");
+//
+////    generateBinaryFile("extraLarge.bin", 500000);
+//
+//    HashTable hashTable;
+//    string bitFileName = "extraLarge.bin";
+//
+//
+//    migrateBinHash(hashTable, bitFileName);
+//    getByKeyHash(hashTable, bitFileName, "00284681");
+//
+//    //measure time
+//    auto start = chrono::high_resolution_clock::now();
+//    getByKeyHash(hashTable, bitFileName, "00591551");
+//    auto end = chrono::high_resolution_clock::now();
+//    auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
+//    cout << "Time taken by function: "
+//         << duration.count() << " microseconds" << endl;
+//
+//    start = chrono::high_resolution_clock::now();
+//    getByKeyHash(hashTable, bitFileName, "00035075");
+//    end = chrono::high_resolution_clock::now();
+//    duration = chrono::duration_cast<chrono::microseconds>(end - start);
+//    cout << "Time taken by function: "
+//         << duration.count() << " microseconds" << endl;
+//
+//    start = chrono::high_resolution_clock::now();
+//    getByKeyHash(hashTable, bitFileName, "00397588");
+//    end = chrono::high_resolution_clock::now();
+//    duration = chrono::duration_cast<chrono::microseconds>(end - start);
+//    cout << "Time taken by function: "
+//         << duration.count() << " microseconds" << endl;
+//
+//
+//
+//    return 0;
+//}
