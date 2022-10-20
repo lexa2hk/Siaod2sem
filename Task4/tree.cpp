@@ -5,66 +5,133 @@
 #include "tree.h"
 #include <iostream>
 #include <random>
+#include <list>
 
+idealBalanceTree::idealBalanceTree() {
+    root = nullptr;
+}
 
-void idealBalanceTree::generateTree(int size) {
+void idealBalanceTree::generateTree(int length) {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(1, 100);
+    std::uniform_int_distribution<> dis(-30, 30);
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < length; i++) {
         addElement(dis(gen));
     }
+    this->size=length;
 }
 
-void idealBalanceTree::addElement(int key) {
-    if (root == nullptr) {
-        root = new node;
-        root->key = key;
-        root->left = nullptr;
-        root->right = nullptr;
-    } else {
-        node *current = root;
-        while (true) {
-            if (key < current->key) {
-                if (current->left != nullptr) {
-                    current = current->left;
-                } else {
-                    current->left = new node;
-                    current->left->key = key;
-                    current->left->left = nullptr;
-                    current->left->right = nullptr;
-                    break;
-                }
-            } else {
-                if (current->right != nullptr) {
-                    current = current->right;
-                } else {
-                    current->right = new node;
-                    current->right->key = key;
-                    current->right->left = nullptr;
-                    current->right->right = nullptr;
-                    break;
-                }
-            }
+void idealBalanceTree::addElement(int key, node* &el) {
+    node* newNode = new node;
+    newNode->key = key;
+    newNode->left = nullptr;
+    newNode->right = nullptr;
+    size++;
+   if(el== nullptr){
+       el=newNode;
+       return;
+   }
+
+    if(el->left== nullptr){
+        el->left=newNode;
+        return;
+    }else if (el->right== nullptr) {
+        el->right = newNode;
+        return;
+    }else{
+        //вызвать функцию с условием, что максимальная и минимальная глубина дерева отличаются не более чем на 1
+        if (height(el->left) < height(el->right)) {
+            addElement(key, el->left);
+        } else {
+            addElement(key, el->right);
         }
+        return;
+    }
+}
+
+int idealBalanceTree::height(idealBalanceTree::node *element) {
+    if(element== nullptr){
+        return 0;
+    }
+    int leftHeight = height(element->left);
+    int rightHeight = height(element->right);
+    if(leftHeight>rightHeight){
+        return leftHeight+1;
+    }else{
+        return rightHeight+1;
     }
 }
 
 
-//print tree in console
-//void idealBalanceTree::printTree(node *element , std::string prefix, bool root) {
-//    if (root) {
-//        element = this->root;
-//    }
-//
-//    if(!element) return;
-//
-//    if(element->right){
-//        printTree(element->right, prefix + (root ? "    " : "│   "), false);
-//    }
-//    std::cout << prefix << (root ? "└── " : "├── ") << element->key << std::endl;
-//    if(element->left){
-//        printTree(element->left, prefix + (root ? "    " : "│   "), false);
-//    }
-//}
+void idealBalanceTree::printTree(node *element , std::string prefix, bool root) {
+    if (root) {
+        element = this->root;
+    }
+
+    if(!element) return;
+
+    if(element->right){
+        printTree(element->right, prefix + (root ? "    " : "│   "), false);
+    }
+    std::cout << prefix << (root ? "└── " : "├── ") << element->key<</* " ("<< height(element) << ")"<<*/std::endl;
+    if(element->left){
+        printTree(element->left, prefix + (root ? "    " : "│   "), false);
+    }
+}
+
+//personal task:
+// count the number of positive elements in the tree
+int idealBalanceTree::countPositiveElements(node *element) {
+    if(element== nullptr){
+        return 0;
+    }
+    int count = 0;
+    if(element->key>0){
+        count++;
+    }
+    count+=countPositiveElements(element->left);
+    count+=countPositiveElements(element->right);
+    return count;
+}
+
+//count the number of elements with given variable
+int idealBalanceTree::countElementsWithVariable(int variable, node *element) {
+    if(element== nullptr){
+        return 0;
+    }
+    int count = 0;
+    if(element->key==variable){
+        count++;
+    }
+    count+=countElementsWithVariable(variable,element->left);
+    count+=countElementsWithVariable(variable,element->right);
+    return count;
+}
+
+//multuply all elements with 2 using BFS
+void idealBalanceTree::multiplyAllElementsWith2(node *element) {
+    if(element== nullptr){
+        return;
+    }
+
+    std::list <node*> queue;
+    queue.push_back(element);
+    while(!queue.empty()){
+        node* current = queue.front();
+        queue.pop_front();
+        if(current== nullptr){
+            continue;
+        }else{
+            current->key*=2;
+            if(current->left){
+                queue.push_back(current->left);
+            }
+            if(current->right){
+                queue.push_back(current->right);
+            }
+        }
+
+    }
+}
+
