@@ -135,3 +135,23 @@ void idealBalanceTree::multiplyAllElementsWith2(node *element) {
     }
 }
 
+int testTree(){
+    system("chcp 65001");
+    idealBalanceTree tree;
+    tree.generateTree(11);
+
+    std::cout<< "Дерево: " << std::endl;
+
+    tree.printTree();
+
+    std::cout<< "Высота дерева: " << tree.height() << std::endl;
+
+    std::cout<<"Количество положительных элементов: "<<tree.countPositiveElements()<<std::endl;
+    std::cout<<"Количество элементов с заданным значением: "<<tree.countElementsWithVariable(5)<<std::endl;
+    tree.multiplyAllElementsWith2();
+    std::cout<<"Дерево после умножения всех элементов на 2: "<<std::endl;
+    tree.printTree();
+
+
+    return 0;
+}

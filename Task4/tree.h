@@ -6,6 +6,7 @@
 #define SIAOD2SEM_TREE_H
 #include <string>
 
+
 //create class for ideal balanced tree where leafs are on the same level
 class idealBalanceTree {
 protected:
@@ -35,5 +36,7 @@ public:
     void multiplyAllElementsWith2(node *element = root);
 
 };
+
+int testTree();
 
 #endif //SIAOD2SEM_TREE_H
