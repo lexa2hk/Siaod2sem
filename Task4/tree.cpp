@@ -81,13 +81,13 @@ void idealBalanceTree::printTree(node *element , std::string prefix, bool root) 
 }
 
 //personal task:
-// count the number of positive elements in the tree
+// count the number of positive leaves in the tree
 int idealBalanceTree::countPositiveElements(node *element) {
     if(element== nullptr){
         return 0;
     }
     int count = 0;
-    if(element->key>0){
+    if(element->key>0 && element->left== nullptr && element->right== nullptr){
         count++;
     }
     count+=countPositiveElements(element->left);
