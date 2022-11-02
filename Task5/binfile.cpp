@@ -34,10 +34,9 @@ int binfile::searchBin( std::string bin,  std::string name){
     std::ifstream fin(bin, std::ios::binary | std::ios::in);
     Note note;
     int i=0;
-    while(!fin.eof()){
-        fin.read((char*)&note, sizeNote);
-
-        if(strcmp(note.name, name.c_str())!=0){
+    while(fin.read((char*)&note, sizeNote)){
+//        printNoteNative(note);
+        if(strcmp(note.name, name.c_str())==0){
             printNoteNative(note);
             return i;
         }

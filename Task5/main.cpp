@@ -3,6 +3,8 @@
 //
 #include <iostream>
 #include <string>
+#include <chrono>
+
 #include "AVLTree.h"
 #include "Note.h"
 #include "binfile.h"
@@ -20,6 +22,8 @@ void avlLarge(){
     cout<<treeLarge.root->height;
 
     cout<<"Search: ZeBndfRUydEEGkQQaNGq "<<treeLarge.search("ZeBndfRUydEEGkQQaNGq");
+
+    cout<<"rotations: "<<treeLarge.rotations<<endl;
 }
 
 void BSTLarge(){
@@ -36,6 +40,100 @@ void BSTLarge(){
 //    treeLarge.printTree();
 
 
+}
+
+void analyzeLinearTime(){
+    binfile binLarge;
+
+    binLarge.textToBin("C:\\Users\\lexa2k\\Desktop\\RTU_SEM2\\Siaod2sem\\Task5\\T5Large.txt", "T5large.bin");
+    cout<<"\nLarge(300 000) File: "<<endl;
+
+    cout<<"Search (top):  ";
+    auto start = chrono::high_resolution_clock::now();
+    cout<<binLarge.searchBin("T5large.bin", "ybqORJFSipIHhJZUvmiq")<<endl;
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "Time taken by function: "<< duration.count() << " microseconds" << endl;
+
+    cout<<"Search (middle):  ";
+    start = chrono::high_resolution_clock::now();
+    cout<<binLarge.searchBin("T5large.bin", "FOQKoqiOfPMJDuvGJhbO")<<endl;
+    end = chrono::high_resolution_clock::now();
+    duration = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "Time taken by function: "<< duration.count() << " microseconds" << endl;
+
+    cout<<"Search (bottom):  ";
+    start = chrono::high_resolution_clock::now();
+    cout<<binLarge.searchBin("T5large.bin", "NSQDFWlnkIeWiuWBsBAf")<<endl;
+    end = chrono::high_resolution_clock::now();
+    duration = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "Time taken by function: "<< duration.count() << " microseconds" << endl;
+
+    return;
+}
+
+void avalyzeBSTTime(){
+    binTree treeLarge;
+    binfile binLarge;
+
+    binLarge.textToBin("C:\\Users\\lexa2k\\Desktop\\RTU_SEM2\\Siaod2sem\\Task5\\T5Large.txt", "T5large.bin");
+    treeLarge.BuildByFile("T5Large.bin");
+    cout<<"\nLarge(300 000) BST Tree: "<<endl;
+
+    cout<<"Search (top):  ";
+    auto start = chrono::high_resolution_clock::now();
+    treeLarge.searchByKey(treeLarge.root, "OIbpjaBmQgXJievFHbPA");
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "Time taken by function: "<< duration.count() << " microseconds" << endl;
+
+    cout<<"Search (middle):  ";
+    start = chrono::high_resolution_clock::now();
+    treeLarge.searchByKey(treeLarge.root, "FOQKoqiOfPMJDuvGJhbO");
+    end = chrono::high_resolution_clock::now();
+    duration = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "Time taken by function: "<< duration.count() << " microseconds" << endl;
+
+    cout<<"Search (bottom):  ";
+    start = chrono::high_resolution_clock::now();
+    treeLarge.searchByKey(treeLarge.root, "NSQDFWlnkIeWiuWBsBAf");
+    end = chrono::high_resolution_clock::now();
+    duration = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "Time taken by function: "<< duration.count() << " microseconds" << endl;
+
+    return;
+}
+
+void avalyzeAVLTime(){
+    AVLTree treeLarge;
+    binfile binLarge;
+
+    binLarge.textToBin("C:\\Users\\lexa2k\\Desktop\\RTU_SEM2\\Siaod2sem\\Task5\\T5Large.txt", "T5large.bin");
+    treeLarge.BuildByFile("T5Large.bin");
+    cout<<"\nLarge(300 000) AVL Tree: "<<endl;
+
+    cout<<"Search (top):  ";
+    auto start = chrono::high_resolution_clock::now();
+    cout<<treeLarge.search( "OIbpjaBmQgXJievFHbPA")<<endl;
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "Time taken by function: "<< duration.count() << " microseconds" << endl;
+
+    cout<<"Search (middle):  ";
+    start = chrono::high_resolution_clock::now();
+    cout<<treeLarge.search("FOQKoqiOfPMJDuvGJhbO")<<endl;
+    end = chrono::high_resolution_clock::now();
+    duration = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "Time taken by function: "<< duration.count() << " microseconds" << endl;
+
+    cout<<"Search (bottom):  ";
+    start = chrono::high_resolution_clock::now();
+    cout<<treeLarge.search("NSQDFWlnkIeWiuWBsBAf")<<endl;
+    end = chrono::high_resolution_clock::now();
+    duration = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "Time taken by function: "<< duration.count() << " microseconds" << endl;
+
+    return;
 }
 
 
@@ -59,6 +157,7 @@ void BSTLarge(){
 
 int main(){
     system("chcp 65001");
+
     int choice = -1;
     binfile bin;
     AVLTree avlTree;
@@ -90,6 +189,8 @@ int main(){
         cout<<"15. Определить число поворотов при построении СДП"<<endl;
         cout<<"16. БДП на 300 000 элементов"<<endl;
         cout<<"17. СДП на 300 000 элементов"<<endl;
+
+        cout<<"18. Сравнение времени"<<endl;
 
         cout<<"0. Выход"<<endl;
         cin>>choice;
@@ -171,23 +272,27 @@ int main(){
             }
             case 7:{
                 cout<<"Введите страну: ";
-                string country;
+//                string country;
+                char country[100];
                 cin>>country;
 
                 cout<<"Введите путь к бинарному файлу: ";
                 string binPath;
                 cin>>binPath;
 
-                char *cstr = new char[country.length() + 1];
-                strcpy(cstr, country.c_str());
-                int res = binTree.searchByKey(binTree.root, cstr);
+//                char *cstr = new char[country.length() + 1];
+//                strcpy(cstr, country.c_str());
+                int res = binTree.searchByKey(binTree.root, country);
                 cout<<endl;
 
-                Note note = bin.directAccessBin(binPath, res);
-                cout<<"Страна: "<<note.name<<endl;
-                cout<<"Население: "<<note.people<<endl;
-                cout<<"Факт нахождения в UNO: "<<note.Uno<<endl;
-                delete [] cstr;
+                if(res == -1){
+                    cout<<"Страна не найдена"<<endl;
+                } else{
+                    cout<<"Страна найдена"<<endl;
+                    cout<<"Позиция в файле: "<<res<<endl;
+                    bin.directAccessBin(binPath, res);
+                }
+//                delete [] cstr;
                 break;
             }
             case 8:{
@@ -260,19 +365,28 @@ int main(){
                 //Повороты
                 cout<<"Количество поворотов: ";
                 cout<<avlTree.rotations<<endl;
+                break;
             }
 
             case 16:{
 
                 cout<<"БДП на 300 000: ";
                 BSTLarge();
+                break;
 
             }
             case 17:{
 
                 cout<<"CДП на 300 000: ";
                 avlLarge();
+                break;
 
+            }
+            case 18:{
+                analyzeLinearTime();
+                avalyzeBSTTime();
+                avalyzeAVLTime();
+                break;
             }
 
         }

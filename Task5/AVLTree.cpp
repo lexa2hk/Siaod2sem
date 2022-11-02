@@ -7,8 +7,8 @@ void AVLTree::BuildByFile(std::string bin) {
     std::ifstream fin(bin, std::ios::binary | std::ios::in);
     Note note;
     int i=0;
-    while(!fin.eof()){
-        fin.read((char*)&note, sizeNote);
+    while(fin.read((char*)&note, sizeNote)){
+
         root = insert(root, note.name, i);
         i++;
     }
