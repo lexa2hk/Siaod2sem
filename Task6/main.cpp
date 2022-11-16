@@ -6,6 +6,7 @@ using namespace std;
 
 int main()
 {
+    system("chcp 65001");
     int n,a,b,w;
     cout<<"Vertex count: ";
     cin>>n;
@@ -30,6 +31,8 @@ int main()
 
     Graph graph2 = graph.Kruksal();
     graph2.toGraphviz("graphKruksal.gv");
+
+
     graph2.printTree();
     return 0;
 }

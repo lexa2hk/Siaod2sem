@@ -37,6 +37,8 @@ class Graph {
     int size=0;
     vector<adjacent> graph = vector<adjacent>(0);
 
+    vector<bool> PrintVisited;
+
 public:
     Graph(int size);
     void addEdge(int vertex1, int vertex2, int weight, bool doRepeat = true);

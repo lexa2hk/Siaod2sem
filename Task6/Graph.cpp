@@ -182,23 +182,27 @@ void Graph::toGraphviz(std::string filename) {
 
 //pretty print tree in console
 void Graph::printTree(std::string prefix, bool root, int vertex) {
-    vector<int> visited(size, false);
-
     if(root){
+        PrintVisited = vector<bool>(size, false);
         cout<<vertex<<endl;
-        visited[vertex] = true;
     }
 
-    for (int i = 0; i < graph[vertex].edges.size(); ++i) {
-        if(!visited[graph[vertex].edges[i].vertexEdge]){
-            cout<<prefix;
-            if(i == graph[vertex].edges.size()-1){
-                cout<<"└──";
-                printTree(prefix+"    ", false, graph[vertex].edges[i].vertexEdge);
-            } else{
-                cout<<"├──";
-                printTree(prefix+"│   ", false, graph[vertex].edges[i].vertexEdge);
+    PrintVisited[vertex] = true;
+    adjacent element = graph[vertex];
+    int adj_start = element.vertex;
+
+    for(edge ed : element.edges){
+        int adj_end = ed.vertexEdge;
+        if(!PrintVisited[adj_end]){
+            cout << prefix;
+            if(root){
+                cout << "└──";
+            }else{
+                cout << "├──";
             }
+            cout << adj_end << endl;
+            printTree(prefix + (root ? "│   " : "│   "), false, adj_end);
         }
+//        PrintVisited[adj_end] = true;
     }
 }
