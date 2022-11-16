@@ -13,7 +13,7 @@ Graph::Graph(int size) {
     }
 }
 
-void Graph::addEdge(int vertex1, int vertex2, int weight) {
+void Graph::addEdge(int vertex1, int vertex2, int weight, bool doRepeat) {
 
     if(vertex1>=size || vertex2>=size){
         cerr<<"Error: vertex out of range"<<endl;
@@ -24,7 +24,7 @@ void Graph::addEdge(int vertex1, int vertex2, int weight) {
     newEdge.vertexEdge = vertex2;
     newEdge.weight = weight;
 
-    if(vertex1!=vertex2){
+    if(vertex1!=vertex2 and doRepeat){
         edge newEdge2;
         newEdge2.vertexEdge = vertex1;
         newEdge2.weight = weight;
@@ -85,6 +85,85 @@ void Graph::dfs(int v, vector<bool> &visited, vector<int> &timeIn, vector<int> &
 
 Graph Graph::Kruksal() {
 
+    vector<edge2way> edgesKruskal;
+
+    for (int i = 0; i < graph.size(); ++i) {
+        for (int j = 0; j < graph[i].edges.size(); ++j) {
+            edge2way edge;
+            edge.vertex1 = graph[i].vertex;
+            edge.vertex2 = graph[i].edges[j].vertexEdge;
+            edge.weight = graph[i].edges[j].weight;
+            edgesKruskal.push_back(edge);
+        }
+    }
+    //delete duplicate edges
+    for (int i = 0; i < edgesKruskal.size(); ++i) {
+        for (int j = i+1; j < edgesKruskal.size(); ++j) {
+            if(edgesKruskal[i].vertex1 == edgesKruskal[j].vertex2 && edgesKruskal[i].vertex2 == edgesKruskal[j].vertex1){
+                edgesKruskal.erase(edgesKruskal.begin()+j);
+                j--;
+            }
+        }
+    }
+
+    //sort edges by weight
+    sort(edgesKruskal.begin(), edgesKruskal.end(), [](edge2way a, edge2way b){
+        return a.weight < b.weight;
+    });
+
+    for(auto e: edgesKruskal){
+        cout<<e.vertex1<<" "<<e.vertex2<<" "<<e.weight<<endl;
+    }
+
+    Graph graphKruskal(size);
+
+    //add edges to graph if they don't create cycle
+    for (int i = 0; i < edgesKruskal.size(); ++i) {
+        vector<bool> visited(size, false);
+        graphKruskal.addEdge(edgesKruskal[i].vertex1, edgesKruskal[i].vertex2, edgesKruskal[i].weight, true);
+        cout<<"Added edge "<<edgesKruskal[i].vertex1<<" "<<edgesKruskal[i].vertex2<<endl;
+        if(graphKruskal.isCycled(edgesKruskal[i].vertex1, visited)){
+            cout<<"CYCLE "<<edgesKruskal[i].vertex1<<" "<<edgesKruskal[i].vertex2<<endl;
+            graphKruskal.removeEdge(edgesKruskal[i].vertex1, edgesKruskal[i].vertex2);
+        }
+    }
+
+    return graphKruskal;
+}
+
+void Graph::removeEdge(int vertex1, int vertex2) {
+    for (int i = 0; i < graph[vertex1].edges.size(); ++i) {
+        if(graph[vertex1].edges[i].vertexEdge == vertex2){
+            graph[vertex1].edges.erase(graph[vertex1].edges.begin()+i);
+            break;
+        }
+    }
+    for (int i = 0; i < graph[vertex2].edges.size(); ++i) {
+        if(graph[vertex2].edges[i].vertexEdge == vertex1){
+            graph[vertex2].edges.erase(graph[vertex2].edges.begin()+i);
+            break;
+        }
+    }
+}
+
+//check acyclic using dfs
+bool Graph::isCycled(int v, vector<bool> &visited, int parent) {
+    visited[v] = true;
+    for (int i = 0; i < graph[v].edges.size(); ++i) {
+        int to = graph[v].edges[i].vertexEdge;
+        if (to == parent) {
+            continue;
+        }
+        if (visited[to]) {
+            return true;
+        } else {
+            if(isCycled(to, visited, v)){
+                return true;
+            }
+        }
+    }
+    return false;
+
 }
 
 void Graph::toGraphviz(std::string filename) {
@@ -99,4 +178,27 @@ void Graph::toGraphviz(std::string filename) {
     }
     file << "}";
     file.close();
+}
+
+//pretty print tree in console
+void Graph::printTree(std::string prefix, bool root, int vertex) {
+    vector<int> visited(size, false);
+
+    if(root){
+        cout<<vertex<<endl;
+        visited[vertex] = true;
+    }
+
+    for (int i = 0; i < graph[vertex].edges.size(); ++i) {
+        if(!visited[graph[vertex].edges[i].vertexEdge]){
+            cout<<prefix;
+            if(i == graph[vertex].edges.size()-1){
+                cout<<"└──";
+                printTree(prefix+"    ", false, graph[vertex].edges[i].vertexEdge);
+            } else{
+                cout<<"├──";
+                printTree(prefix+"│   ", false, graph[vertex].edges[i].vertexEdge);
+            }
+        }
+    }
 }

@@ -29,6 +29,7 @@ int main()
     graph.toGraphviz("graph.gv");
 
     Graph graph2 = graph.Kruksal();
-    graph.toGraphviz("graphKruksal.gv");
+    graph2.toGraphviz("graphKruksal.gv");
+    graph2.printTree();
     return 0;
 }
