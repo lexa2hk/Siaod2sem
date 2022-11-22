@@ -121,7 +121,7 @@ Graph Graph::Kruksal() {
     for (int i = 0; i < edgesKruskal.size(); ++i) {
         vector<bool> visited(size, false);
         graphKruskal.addEdge(edgesKruskal[i].vertex1, edgesKruskal[i].vertex2, edgesKruskal[i].weight, true);
-        cout<<"Added edge "<<edgesKruskal[i].vertex1<<" "<<edgesKruskal[i].vertex2<<endl;
+//        cout<<"Added edge "<<edgesKruskal[i].vertex1<<" "<<edgesKruskal[i].vertex2<<endl;
         if(graphKruskal.isCycled(edgesKruskal[i].vertex1, visited)){
             cout<<"CYCLE "<<edgesKruskal[i].vertex1<<" "<<edgesKruskal[i].vertex2<<endl;
             graphKruskal.removeEdge(edgesKruskal[i].vertex1, edgesKruskal[i].vertex2);
