@@ -36,6 +36,7 @@ public:
     void scanText(string text);
     vector<bool> encode(string text);
     void buildCodeTree(vector<tuple<char,double>>data, string curValue, treeNode *root);
+    string decode();
 
     int getByteSize();
     ~ShennonFano();

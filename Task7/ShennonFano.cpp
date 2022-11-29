@@ -42,6 +42,19 @@ ShennonFano::~ShennonFano() {
     answer.clear();
     count.clear();
     dataProbability.clear();
+    codeTable.clear();
+
+    treeNode *temp = rootTree;
+    while(temp!= nullptr){
+        if(temp->left!= nullptr){
+            temp = temp->left;
+            delete temp->right;
+        } else {
+            delete temp;
+            temp = nullptr;
+        }
+    }
+
 }
 
 void ShennonFano::buildCodeTree(vector<tuple<char,double>>data,string curValue, treeNode *root) {
@@ -99,6 +112,23 @@ int ShennonFano::getByteSize() {
     }else{
         return answer.size()/8+1;
     }
+}
+
+string ShennonFano::decode() {
+    string result;
+    string temp_code;
+    while(!answer.empty()){
+        temp_code+=answer.front() ? "1" : "0";
+        answer.erase(answer.begin());
+        for(auto it: codeTable){
+            if(it.second==temp_code){
+                result+=it.first;
+                temp_code.clear();
+                break;
+            }
+        }
+    }
+    return result;
 }
 
 

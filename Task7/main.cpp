@@ -85,7 +85,9 @@ int main(){
                         "Seven, eight, gonna stay up late.\n";
     ShennonFano ShFano;
     ShFano.encode(shenonText);
-    cout<<"RATIO: "<<calcucateCompressionRatio(shenonText,ShFano.getByteSize());
+    cout<<"RATIO: "<<calcucateCompressionRatio(shenonText,ShFano.getByteSize())<<endl;
+
+    cout<<"Decoded: "<<ShFano.decode()<<endl;
 
     return 0;
 }
