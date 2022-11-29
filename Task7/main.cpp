@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include "LZ77.h"
+#include "LZ78.h"
+#include "ShennonFano.h"
 
 using namespace std;
 
@@ -51,6 +53,9 @@ string decodeRLE(string dataRLE){
 
 int main(){
 
+//    system("chcp 65001");
+    setlocale(LC_CTYPE,"Russian");
+
     string text = "0100100010010000101";
     string textRLE = encodeRLE(text);
 
@@ -62,6 +67,25 @@ int main(){
     lz77.encode(text);
     cout<<lz77.decode(lz77.encoded)<<endl;
     cout<<calcucateCompressionRatio(text,lz77.getEncodedLength())<<endl;
+
+
+    LZ78 lz78;
+    string lz78text= "упупапекапекаупуп";
+    string lz78textENG="upupapekapekaupup";
+
+    lz78.encode(lz78textENG);
+    lz78.printEncoded();
+    cout<<lz78.getEncodedLength()<<endl;
+    cout<<calcucateCompressionRatio(lz78textENG,lz78.getEncodedLength())<<endl;
+
+    cout<<"SHENNON FANO"<<endl;
+    string shenonText = "One, two, Freddy's coming for you \n"
+                        "Three, four, better lock \n"
+                        "your door Five, six, grab a crucifix \n"
+                        "Seven, eight, gonna stay up late.\n";
+    ShennonFano ShFano;
+    ShFano.encode(shenonText);
+    cout<<"RATIO: "<<calcucateCompressionRatio(shenonText,ShFano.getByteSize());
 
     return 0;
 }
