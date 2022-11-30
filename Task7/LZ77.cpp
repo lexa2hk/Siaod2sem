@@ -82,9 +82,9 @@ string LZ77::decode(vector<Node> encoded){
 void LZ77::printEncoded() {
     for(int i=0;i<encoded.size();i++){
         if(encoded[i].next=='\0'){
-            cout<<"("<<encoded[i].offset<<","<<encoded[i].length<<", NTERM)"<<endl;
+            cout<<"("<<(int)encoded[i].offset<<","<<(int)encoded[i].length<<", NTERM)"<<endl;
         }else{
-            cout<<"("<<encoded[i].offset<<","<<encoded[i].length<<", "<<encoded[i].next<<")"<<endl;
+            cout<<"("<<(int)encoded[i].offset<<","<<(int)encoded[i].length<<", "<<encoded[i].next<<")"<<endl;
         }
 
     }

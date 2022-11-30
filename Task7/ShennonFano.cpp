@@ -5,9 +5,10 @@
 
 void ShennonFano::scanText(string text) {
     for(auto c: text){
-        s_length++;
+
         count.find(c) == count.end() ? count[c]=1 : count[c]++;
     }
+    s_length=text.length();
 
     for(auto it : count){
         dataProbability.emplace_back(it.first,(double)it.second/ (double)s_length);
@@ -35,7 +36,6 @@ vector<bool> ShennonFano::encode(string text) {
         }
     }
     return {};
-
 }
 
 ShennonFano::~ShennonFano() {
@@ -44,16 +44,16 @@ ShennonFano::~ShennonFano() {
     dataProbability.clear();
     codeTable.clear();
 
-    treeNode *temp = rootTree;
-    while(temp!= nullptr){
-        if(temp->left!= nullptr){
-            temp = temp->left;
-            delete temp->right;
-        } else {
-            delete temp;
-            temp = nullptr;
-        }
-    }
+//    treeNode *temp = rootTree;
+//    while(temp!= nullptr){
+//        if(temp->left!= nullptr){
+//            temp = temp->left;
+//            delete temp->right;
+//        } else {
+//            delete temp;
+//            temp = nullptr;
+//        }
+//    }
 
 }
 
@@ -115,7 +115,7 @@ int ShennonFano::getByteSize() {
 }
 
 string ShennonFano::decode() {
-    string result;
+    string result="";
     string temp_code;
     while(!answer.empty()){
         temp_code+=answer.front() ? "1" : "0";

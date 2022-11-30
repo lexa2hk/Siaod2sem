@@ -10,6 +10,7 @@
 #include <iostream>
 #include <map>
 #include <numeric>
+#include "fstream"
 
 using namespace std;
 
@@ -25,17 +26,32 @@ class Huffman{
         Node data;
         treeNode *left;
         treeNode *right;
+        treeNode *parent;
     };
 
 
 
     vector<Node> data;
     vector<bool> answer;
-    long long s_length=0;
+    map<string,string>codeTable;
+    map<string,string>decodeTable;
+
+    treeNode *rootTree;
 public:
     void scanText(string dataText);
     int find_el(char c);
-    vector<bool> encode(string dataText);
+
+    void createCodes(treeNode *pNode, string code);
+
+    void printEncoded();
+
+    int getEncodedLength();
+
+    string decode();
+
+    vector<bool> encode(string dataText, string fileName="", bool isFile=false);
+
+    long long s_length=0;
 };
 
 #endif //SIAOD2SEM_HUFFMAN_H

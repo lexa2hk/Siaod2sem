@@ -5,28 +5,6 @@
 #include "Huffman.h"
 
 
-//template <typename T, typename Compare>
-//vector<size_t> sort_permutation(
-//        const vector<T>& vec,
-//        Compare compare)
-//{
-//    vector<size_t> p(vec.size());
-//    iota(p.begin(), p.end(), 0);
-//    sort(p.begin(), p.end(),
-//         [&](size_t i, size_t j){ return compare(vec[i], vec[j]); });
-//    return p;
-//}
-//
-//template <typename T>
-//vector<T> apply_permutation(
-//        const vector<T>& vec,
-//        const vector<size_t>& p)
-//{
-//    vector<T> sorted_vec(vec.size());
-//    transform(p.begin(), p.end(), sorted_vec.begin(),
-//              [&](size_t i){ return vec[i]; });
-//    return sorted_vec;
-//}
 
 
 void Huffman::scanText(string dataText) {
@@ -39,30 +17,79 @@ void Huffman::scanText(string dataText) {
             this->data.push_back(Node{string(1,c),1});
         }
     }
-    sort(this->data.begin(),this->data.end(),[&](Node a, Node b){return a.weight > b.weight;});
-
-
 }
 
-vector<bool> Huffman::encode(string dataText){
-    scanText(dataText);
-    treeNode *left;
-    treeNode *right;
 
-    while(data.size()>1){
-        Node last = data.back();
-        data.pop_back();
-        Node preLast = data.back();
-        data.pop_back();
-        Node merged{last.s+preLast.s,last.weight+preLast.weight};
-        data.erase(data.begin());
+vector<bool> Huffman::encode(string dataText, string fileName, bool isFile) {
 
-        //create leaves
-        left = treeNode{};
-
-        //merge last to data[0]
-
+    if(!isFile) {
+        scanText(dataText);
+        sort(this->data.begin(), this->data.end(), [&](Node a, Node b) { return a.weight > b.weight; });
+    }else{
+        ifstream file(fileName);
+        string str;
+        while (getline(file, str)) {
+            scanText(str+"\n");
+        }
+        sort(this->data.begin(), this->data.end(), [&](Node a, Node b) { return a.weight > b.weight; });
     }
+
+    vector<treeNode*> nodes;
+    for(int i=0;i<this->data.size();i++){
+        nodes.push_back(new treeNode{this->data[i], nullptr, nullptr, nullptr});
+    }
+
+    while(nodes.size()>1){
+        treeNode *left = nodes[nodes.size()-1];
+        treeNode *right = nodes[nodes.size()-2];
+        treeNode *parent = new treeNode{Node{"",left->data.weight+right->data.weight},left,right,nullptr};
+        left->parent=parent;
+        right->parent=parent;
+        nodes.pop_back();
+        nodes.pop_back();
+        nodes.push_back(parent);
+        sort(nodes.begin(), nodes.end(), [&](treeNode *a, treeNode *b) { return a->data.weight > b->data.weight; });
+    }
+
+    this->rootTree = nodes[0];
+
+
+    //create codes for all tree
+    createCodes(rootTree,"");
+
+    //cout map
+    for(auto i:codeTable){
+        cout<<i.first<<" "<<i.second<<endl;
+    }
+
+//encode data
+    if(!isFile){
+        for(char c : dataText){
+            for(char code : codeTable[string(1,c)]){
+                if(code=='0') answer.push_back(false);
+                else answer.push_back(true);
+            }
+        }
+    }else{
+        ifstream file(fileName);
+        string str;
+        while (getline(file, str)) {
+            for(char c : str){
+                for(char code : codeTable[string(1,c)]){
+                    if(code=='0') answer.push_back(false);
+                    else answer.push_back(true);
+                }
+            }
+            for(char code : codeTable[string(1,'\n')]){
+                if(code=='0') answer.push_back(false);
+                else answer.push_back(true);
+            }
+        }
+    }
+
+
+    return answer;
+
 }
 
 int Huffman::find_el(char c) {
@@ -71,6 +98,42 @@ int Huffman::find_el(char c) {
             return i;
     }
     return -1;
+}
+
+void Huffman::createCodes(Huffman::treeNode *pNode, string code) {
+    if(pNode->left== nullptr && pNode->right== nullptr){
+        codeTable[pNode->data.s]=code;
+        decodeTable[code]=pNode->data.s;
+        return;
+    }
+    createCodes(pNode->left,code+"0");
+    createCodes(pNode->right,code+"1");
+
+}
+
+void Huffman::printEncoded(){
+    for(bool i: answer){
+        cout<<i;
+    }
+    cout<<endl;
+}
+
+int Huffman::getEncodedLength() {
+    return answer.size()/8;
+}
+
+string Huffman::decode(){
+    string decoded;
+    string code;
+    for(bool i:answer){
+        if(i) code+="1";
+        else code+="0";
+        if(decodeTable.find(code)!=decodeTable.end()){
+            decoded+=decodeTable[code];
+            code="";
+        }
+    }
+    return decoded;
 }
 
 
