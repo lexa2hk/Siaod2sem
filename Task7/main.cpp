@@ -55,8 +55,10 @@ string decodeRLE(string dataRLE){
 
 int main(){
 
-//    system("chcp 65001");
-    setlocale(LC_CTYPE,"Russian");
+   system("chcp 65001");
+//    setlocale(LC_CTYPE,"Russian");
+
+    cout<<"Лабораторная работа №7.'Алгоритмы сжатия'. Смольников Алексей. Вариант 2(22)"<<endl;
 
     cout<<"RLE encoding"<<endl;
     string RLErepeat = "ABBBBABBBBBABBBBBABBBBBBAOOOOOOOSDSSSSSSSSHHHHHHHLLLLLLL%%%%%%%%%%";
