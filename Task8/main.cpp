@@ -73,7 +73,7 @@ string Greedy(int *&q,int *&c,int n,int Q) {
 
 
     for(int i=0;i<n;i++){
-        bruteCnt+=2;
+        crudeCnt+=2;
         if(weight+q[i]<=Q){
             weight+=q[i];
             sum+=c[i];
