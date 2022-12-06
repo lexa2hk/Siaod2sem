@@ -99,7 +99,7 @@ int main(){
                 string lz78text;
                 lz78text = "upupapekapekaupup";
                 lz78.encode(lz78text);
-                cout<<"Текст: ";
+                cout<<"Текст: "<< lz78text<<endl;
                 lz78.printEncoded();
                 cout<<endl;
 
@@ -116,11 +116,14 @@ int main(){
                              "Three, four, better lock \n"
                              "your door Five, six, grab a crucifix \n"
                              "Seven, eight, gonna stay up late.\n";
+                cout<<shenonText<<endl;
                 ShennonFano ShFano;
                 ShFano.encode(shenonText);
                 cout<<"Коэффициент сжатия: "<<calcucateCompressionRatio(shenonText,ShFano.getByteSize())<<endl;
 
                 cout<<"Декодированный текст: "<<ShFano.decode()<<endl;
+                ShFano.printCodeTable();
+
                 break;
             }
 

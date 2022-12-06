@@ -34,6 +34,10 @@ vector<bool> Huffman::encode(string dataText, string fileName, bool isFile) {
         sort(this->data.begin(), this->data.end(), [&](Node a, Node b) { return a.weight > b.weight; });
     }
 
+    for(auto el:this->data){
+        cout << el.s << " " << el.weight << endl;
+    }
+
     vector<treeNode*> nodes;
     for(int i=0;i<this->data.size();i++){
         nodes.push_back(new treeNode{this->data[i], nullptr, nullptr, nullptr});
@@ -86,6 +90,25 @@ vector<bool> Huffman::encode(string dataText, string fileName, bool isFile) {
             }
         }
     }
+
+    //write answer to file (every 8 bits to char)
+    ofstream file("encoded.txt");
+    string str;
+    for(int i=0;i<answer.size();i++){
+        if(answer[i]) str+="1";
+        else str+="0";
+        if(str.length()==8){
+            file<<char(stoi(str, nullptr, 2));
+            str="";
+        }
+    }
+    if(str.length()!=0){
+        while(str.length()!=8){
+            str+="0";
+        }
+        file<<char(stoi(str, nullptr, 2));
+    }
+    file.close();
 
 
     return answer;

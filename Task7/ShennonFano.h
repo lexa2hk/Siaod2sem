@@ -23,22 +23,26 @@ class ShennonFano{
     int tempCnt=0;
 
     struct treeNode{
-        char c;
+        char c = '\r';
         string code;
 
         treeNode *left;
         treeNode *right;
     };
 
-    treeNode *rootTree = new treeNode;
+
 
 public:
+    treeNode *rootTree = new treeNode;
     void scanText(string text);
     vector<bool> encode(string text);
     void buildCodeTree(vector<tuple<char,double>>data, string curValue, treeNode *root);
     string decode();
 
     int getByteSize();
+    void printCodeTable();
+
+
     ~ShennonFano();
 
 

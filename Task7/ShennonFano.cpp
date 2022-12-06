@@ -1,7 +1,9 @@
 //
 // Created by lexa2k on 29.11.2022.
 //
+#include <fstream>
 #include "ShennonFano.h"
+#include <fstream>
 
 void ShennonFano::scanText(string text) {
     for(auto c: text){
@@ -131,4 +133,13 @@ string ShennonFano::decode() {
     return result;
 }
 
+void ShennonFano::printCodeTable() {
+    for(auto it: codeTable){
+        cout << it.first<< endl;
+    }
 
+    for(auto it: codeTable){
+        cout << it.second<< endl;
+    }
+
+}
