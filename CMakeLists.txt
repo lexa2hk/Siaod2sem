@@ -27,5 +27,5 @@ set(CMAKE_CXX_STANDARD 23)
 #
 #endif()
 
-#add_executable(Siaod2sem Task7/main.cpp Task7/LZ77.h Task7/LZ77.cpp Task7/LZ78.h Task7/LZ78.cpp Task7/ShennonFano.h Task7/ShennonFano.cpp Task7/az100000.h Task7/Huffman.h Task7/Huffman.cpp)
-add_executable(Siaod2sem Task8/main.cpp Task8/main.cpp)
+add_executable(Siaod2sem Task7/main.cpp Task7/LZ77.h Task7/LZ77.cpp Task7/LZ78.h Task7/LZ78.cpp Task7/ShennonFano.h Task7/ShennonFano.cpp Task7/az100000.h Task7/Huffman.h Task7/Huffman.cpp)
+#add_executable(Siaod2sem Task8/main.cpp Task8/main.cpp)
